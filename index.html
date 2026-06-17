@@ -2,962 +2,913 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>XENO MODS — GET KEY</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #07080C;
-      --surface:     #0E1018;
-      --surface2:    #131620;
-      --border:      #1C2235;
-      --neon:        #00C8FF;
-      --neon-glow:   rgba(0,200,255,.45);
-      --neon-dim:    #0072B2;
-      --neon-soft:   rgba(0,200,255,.08);
-      --green:       #00E676;
-      --green-glow:  rgba(0,230,118,.4);
-      --white:       #E8F0FF;
-      --muted:       #5A6A88;
-      --warn:        #FFB347;
-      --danger:      #FF5252;
-      --radius:      12px;
-      --font:        'Sarabun', -apple-system, 'Helvetica Neue', sans-serif;
-      --mono:        'Share Tech Mono', monospace;
-      --total:       3;
+      --bg: #0B0C10;
+      --surface: #10131a;
+      --panel: #13171f;
+      --blue: #00D2FF;
+      --blue2: #0072FF;
+      --glow: rgba(0, 210, 255, 0.35);
+      --glow-strong: rgba(0, 210, 255, 0.7);
+      --text: #e8eaf0;
+      --muted: #5a6070;
+      --danger: #FF4060;
+      --success: #00ffaa;
     }
 
-    html { scroll-behavior: smooth; }
-    body {
+    html, body {
+      min-height: 100vh;
       background: var(--bg);
-      color: var(--white);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.65;
+      color: var(--text);
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,210,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,210,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow-x: hidden;
-    }
-
-    /* ── SCAN LINE ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,200,255,.018) 3px, rgba(0,200,255,.018) 4px
-      );
-      pointer-events: none;
-    }
-
-    /* ── AMBIENT BLOBS ── */
-    .blob {
-      position: fixed; border-radius: 50%;
-      pointer-events: none; z-index: 0;
-      filter: blur(80px);
-    }
-    .blob-1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(0,200,255,.07) 0%, transparent 70%);
-      top: -180px; left: -160px;
-    }
-    .blob-2 {
-      width: 420px; height: 420px;
-      background: radial-gradient(circle, rgba(0,114,255,.06) 0%, transparent 70%);
-      bottom: -160px; right: -120px;
     }
 
     /* ── HEADER ── */
     header {
-      position: relative; z-index: 10;
       width: 100%;
-      padding: 24px 20px 20px;
-      display: flex; justify-content: center;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(0,200,255,.04) 0%, transparent 100%);
+      padding: 28px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(0,210,255,0.12);
+      background: linear-gradient(180deg, rgba(0,114,255,0.06) 0%, transparent 100%);
     }
-    .header-inner {
-      display: flex; align-items: center; gap: 14px;
-    }
-    .logo-wrap {
-      position: relative; width: 60px; height: 60px; flex-shrink: 0;
-    }
-    .logo-wrap img {
-      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-      border: 2px solid var(--neon);
-      box-shadow: 0 0 16px var(--neon-glow);
-      display: block;
+
+    .logo-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px var(--blue)) drop-shadow(0 0 28px rgba(0,210,255,0.4));
       animation: pulse-logo 3s ease-in-out infinite;
     }
+
     @keyframes pulse-logo {
-      0%,100% { box-shadow: 0 0 16px var(--neon-glow); }
-      50%      { box-shadow: 0 0 30px var(--neon-glow), 0 0 60px rgba(0,200,255,.2); }
+      0%,100% { filter: drop-shadow(0 0 12px var(--blue)) drop-shadow(0 0 28px rgba(0,210,255,0.4)); }
+      50%      { filter: drop-shadow(0 0 20px var(--blue)) drop-shadow(0 0 45px rgba(0,210,255,0.7)); }
     }
-    .header-text h1 {
-      font-size: 1.35rem; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--white);
-      text-shadow: 0 0 18px rgba(0,200,255,.5);
+
+    .site-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      letter-spacing: 0.18em;
+      color: var(--blue);
+      text-shadow: 0 0 12px var(--glow-strong), 0 0 30px var(--glow);
     }
-    .header-text h1 em { color: var(--neon); font-style: normal; }
-    .header-text p {
-      font-size: .7rem; letter-spacing: .28em;
-      text-transform: uppercase; color: var(--muted);
-      margin-top: 2px;
+
+    .site-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
     }
 
     /* ── MAIN ── */
     main {
-      position: relative; z-index: 10;
-      width: 100%; max-width: 620px;
-      padding: 40px 20px 60px;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 0;
-    }
-
-    /* ── SCREEN WRAPPER (fade transitions) ── */
-    .screen {
+      flex: 1;
       width: 100%;
-      display: flex; flex-direction: column; align-items: center;
-      animation: fadeIn .4s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ══════════════════════════════
-       CHECKPOINT SCREEN
-    ══════════════════════════════ */
-
-    /* Progress Bar */
-    .progress-wrap {
-      width: 100%; margin-bottom: 36px;
-    }
-    .progress-header {
-      display: flex; justify-content: space-between;
-      align-items: center; margin-bottom: 10px;
-    }
-    .progress-title {
-      font-size: .72rem; font-weight: 600;
-      letter-spacing: .25em; text-transform: uppercase;
-      color: var(--neon);
-    }
-    .progress-count {
-      font-family: var(--mono);
-      font-size: .9rem;
-      color: var(--white);
-    }
-    .progress-count span { color: var(--neon); }
-
-    .bar-track {
-      width: 100%; height: 6px;
-      background: var(--surface2);
-      border-radius: 99px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #0072B2, var(--neon));
-      border-radius: 99px;
-      transition: width .5s cubic-bezier(.4,0,.2,1);
-      box-shadow: 0 0 10px var(--neon-glow);
-      min-width: 0;
+      max-width: 560px;
+      padding: 30px 18px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
-    /* Step Dots */
-    .step-dots {
-      display: flex; justify-content: center; gap: 10px;
-      margin-top: 10px;
-    }
-    .step-dot {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: var(--surface);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 700; color: var(--muted);
-      transition: all .3s;
-      position: relative;
-    }
-    .step-dot.done {
-      border-color: var(--neon);
-      background: rgba(0,200,255,.12);
-      color: var(--neon);
-      box-shadow: 0 0 10px rgba(0,200,255,.3);
-    }
-    .step-dot.done::after {
-      content: '✓';
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .8rem;
-    }
-    .step-dot.done span { display: none; }
-
-    /* Center Card */
-    .center-card {
+    /* ── QUOTA BAR ── */
+    .quota-bar {
       width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 36px 28px;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 20px;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .center-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon), transparent);
-      box-shadow: 0 0 20px var(--neon-glow);
+      background: rgba(0,210,255,0.05);
+      border: 1px solid rgba(0,210,255,0.14);
+      border-radius: 10px;
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .step-icon {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: var(--neon-soft);
-      border: 1.5px solid var(--neon-dim);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 0 24px rgba(0,200,255,.15);
-      animation: float 3.5s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-6px); }
-    }
-
-    .card-title {
-      font-size: 1.25rem; font-weight: 700;
-      color: var(--white);
-      line-height: 1.4;
-    }
-    .card-desc {
-      font-size: .9rem; color: #8899BB;
-      max-width: 360px;
-    }
-    .card-desc strong { color: var(--warn); }
-
-    /* Remaining badge */
-    .remain-badge {
-      background: rgba(0,200,255,.08);
-      border: 1px solid var(--neon-dim);
-      border-radius: 99px;
-      padding: 8px 22px;
-      font-size: .82rem; font-weight: 600;
-      color: var(--neon);
-      letter-spacing: .04em;
-    }
-
-    /* CTA Button */
-    .cta-btn {
-      position: relative;
-      width: 100%; max-width: 340px;
-      padding: 16px 24px;
-      background: linear-gradient(135deg, #0054AA, #0096DD);
-      border: none; border-radius: 10px;
-      color: #fff; font-family: var(--font);
-      font-size: 1rem; font-weight: 700;
-      letter-spacing: .06em;
-      cursor: pointer;
-      overflow: hidden;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 0 20px rgba(0,150,221,.5), 0 4px 20px rgba(0,0,0,.4);
-    }
-    .cta-btn::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #0072FF, #00C8FF);
-      opacity: 0;
-      transition: opacity .2s;
-    }
-    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,200,255,.6), 0 6px 24px rgba(0,0,0,.4); }
-    .cta-btn:hover::before { opacity: 1; }
-    .cta-btn:active { transform: translateY(0) scale(.98); }
-    .cta-btn span { position: relative; z-index: 1; }
-
-    /* Cooldown overlay on button */
-    .cta-btn:disabled {
-      background: var(--surface2);
-      box-shadow: none; cursor: not-allowed;
-      color: var(--muted);
-    }
-    .cta-btn:disabled::before { display: none; }
-
-    /* Cooldown note */
-    .cooldown-note {
-      font-size: .78rem; color: var(--muted);
-      display: flex; align-items: center; gap: 6px;
-    }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--neon);
-      box-shadow: 0 0 6px var(--neon);
-      animation: blink 1.2s step-start infinite;
+    .quota-bar i {
+      color: var(--blue);
+      font-size: 0.85rem;
+      opacity: 0.8;
       flex-shrink: 0;
     }
-    @keyframes blink { 50% { opacity: 0; } }
 
-    /* ══════════════════════════════
-       KEY REVEAL SCREEN
-    ══════════════════════════════ */
-    .reveal-screen {
+    .quota-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .quota-text strong {
+      color: var(--blue);
+      font-size: 0.9rem;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
       width: 100%;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 28px; animation: fadeIn .5s ease;
+      background: rgba(255,64,96,0.07);
+      border: 1px solid rgba(255,64,96,0.3);
+      border-radius: 10px;
+      padding: 13px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    .congrats-header {
+    .notice i {
+      color: var(--danger);
+      font-size: 0.9rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .notice p {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: #ffccd5;
+    }
+
+    /* ── CHECKPOINT CARD ── */
+    .card {
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid rgba(0,210,255,0.18);
+      border-radius: 16px;
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 0 30px rgba(0,210,255,0.06), inset 0 0 60px rgba(0,0,0,0.3);
+    }
+
+    .step-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .step-dots {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 60px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(0,210,255,0.1);
+      border: 1px solid rgba(0,210,255,0.2);
+      transition: all 0.45s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dot.done {
+      background: var(--blue);
+      border-color: var(--blue);
+      box-shadow: 0 0 10px var(--glow-strong);
+    }
+
+    .dot.done::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      animation: shimmer 1.2s ease-in-out;
+    }
+
+    @keyframes shimmer {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+
+    .step-count {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(2.8rem, 10vw, 4rem);
+      font-weight: 700;
+      color: var(--blue);
+      text-shadow: 0 0 20px var(--glow-strong), 0 0 50px var(--glow);
+      line-height: 1;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--text);
       text-align: center;
-    }
-    .congrats-icon {
-      font-size: 3.5rem; display: block; margin-bottom: 12px;
-      animation: pop .5s cubic-bezier(.17,.67,.83,.67);
-    }
-    @keyframes pop {
-      0%   { transform: scale(0); opacity: 0; }
-      70%  { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-    .congrats-header h2 {
-      font-size: 1.6rem; font-weight: 800;
-      color: var(--neon);
-      text-shadow: 0 0 24px var(--neon-glow);
-      letter-spacing: .05em;
-    }
-    .congrats-header p {
-      font-size: .9rem; color: #8899BB; margin-top: 6px;
+      line-height: 1.7;
+      opacity: 0.85;
     }
 
+    /* ── MAIN BUTTON ── */
+    .btn-go {
+      width: 100%;
+      max-width: 340px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, var(--blue2), var(--blue));
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.3s;
+      box-shadow: 0 0 18px rgba(0,114,255,0.5), 0 0 40px rgba(0,210,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-go::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn-go:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,114,255,0.8), 0 0 60px rgba(0,210,255,0.35); }
+    .btn-go:hover::before { opacity: 1; }
+    .btn-go:active { transform: translateY(0); }
+    .btn-go:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── KEY CARD ── */
     .key-card {
       width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--neon-dim);
+      background: var(--panel);
+      border: 1px solid rgba(0,255,170,0.3);
       border-radius: 16px;
-      padding: 28px 24px;
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
-      position: relative; overflow: hidden;
-      box-shadow: 0 0 40px rgba(0,200,255,.1);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 0 40px rgba(0,255,170,0.08);
     }
-    .key-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon), transparent);
-      box-shadow: 0 0 20px var(--neon-glow);
+
+    .key-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--success);
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(0,255,170,0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .key-label-text {
-      font-size: .68rem; font-weight: 700;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: var(--neon);
-    }
-    .key-display {
-      font-family: var(--mono);
-      font-size: clamp(1rem, 4vw, 1.4rem);
-      color: var(--white);
-      background: var(--surface2);
-      border: 1px solid var(--border);
+
+    .key-badge {
+      background: rgba(0,255,170,0.05);
+      border: 1px solid rgba(0,255,170,0.22);
       border-radius: 8px;
-      padding: 14px 20px;
+      padding: 18px 22px;
       width: 100%;
       text-align: center;
-      letter-spacing: .08em;
-      user-select: all;
+    }
+
+    .key-value {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.88rem, 3.5vw, 1.05rem);
+      color: var(--success);
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 10px rgba(0,255,170,0.6);
       word-break: break-all;
     }
-    .key-copy-btn {
-      width: 100%; max-width: 300px;
-      padding: 14px;
-      background: transparent;
-      border: 1.5px solid var(--neon);
-      border-radius: 10px;
-      color: var(--neon);
-      font-family: var(--font);
-      font-size: .95rem; font-weight: 700;
-      cursor: pointer;
-      transition: background .2s, box-shadow .2s;
-      box-shadow: 0 0 12px rgba(0,200,255,.2);
-    }
-    .key-copy-btn:hover {
-      background: rgba(0,200,255,.1);
-      box-shadow: 0 0 24px rgba(0,200,255,.4);
-    }
-    .key-copy-btn.copied {
-      border-color: var(--green);
-      color: var(--green);
-      background: rgba(0,230,118,.08);
-      box-shadow: 0 0 20px var(--green-glow);
-                        } 
 
-    .key-warn {
-      background: rgba(255,179,71,.06);
-      border: 1px solid rgba(255,179,71,.3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: .82rem; color: var(--warn);
+    .btn-copy {
       width: 100%;
-      display: flex; gap: 10px; align-items: flex-start;
+      max-width: 320px;
+      padding: 14px 24px;
+      background: transparent;
+      border: 1.5px solid var(--success);
+      border-radius: 10px;
+      color: var(--success);
+      font-family: 'Sarabun', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .reset-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+    .btn-copy:hover {
+      background: rgba(0,255,170,0.1);
+      box-shadow: 0 0 18px rgba(0,255,170,0.3);
+    }
+
+    .copy-toast {
+      font-size: 0.82rem;
+      color: var(--success);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-toast.show { opacity: 1; }
+
+    .key-expire {
+      font-size: 0.8rem;
       color: var(--muted);
-      font-family: var(--font);
-      font-size: .8rem;
-      padding: 8px 18px;
+      text-align: center;
+      line-height: 1.65;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .key-expire i { color: var(--blue); opacity: 0.6; }
+
+    .btn-reset {
+      background: transparent;
+      border: 1px solid rgba(255,64,96,0.3);
+      border-radius: 8px;
+      color: rgba(255,64,96,0.6);
+      padding: 8px 20px;
+      font-size: 0.78rem;
       cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .reset-btn:hover { border-color: var(--danger); color: var(--danger); }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative; z-index: 10;
-      width: 100%; border-top: 1px solid var(--border);
-      padding: 18px 24px; text-align: center;
-    }
-    footer p { font-size: .72rem; color: var(--muted); letter-spacing: .05em; }
-    footer p span { color: var(--neon); }
-
-    /* ── TOAST ── */
-    #toast {
-      position: fixed;
-      bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px);
-      background: #0F1117;
-      border: 1px solid var(--green);
-      color: var(--green);
-      font-size: .85rem; font-weight: 600;
-      padding: 10px 26px;
-      border-radius: 50px;
-      box-shadow: 0 0 24px var(--green-glow);
-      opacity: 0; transition: opacity .25s, transform .25s;
-      pointer-events: none; z-index: 999;
-    }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    @media (max-width: 420px) {
-      .center-card { padding: 28px 18px; }
-      .step-dot { width: 26px; height: 26px; font-size: .65rem; }
+      font-family: 'Sarabun', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
 
-    /* ── DAILY COUNTER BADGE ── */
-    .daily-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      padding: 6px 16px;
-      font-size: .78rem; color: var(--muted);
-      margin-bottom: 20px;
+    .btn-reset:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(255,64,96,0.06);
     }
-    .daily-badge i { color: var(--neon); font-size: .75rem; }
-    .daily-badge strong { color: var(--white); }
 
-    /* ── CONTACT ADMIN BAR ── */
-    .contact-bar {
-      position: relative; z-index: 10;
+    /* ── CONTACT ── */
+    .contact-section {
       width: 100%;
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 12px 20px;
-      display: flex; align-items: center; justify-content: center; gap: 20px;
+      background: rgba(0,210,255,0.04);
+      border: 1px solid rgba(0,210,255,0.12);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 12px;
       flex-wrap: wrap;
+      justify-content: center;
     }
-    .contact-bar-label {
-      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--muted);
-    }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 7px 16px;
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--white);
-      font-size: .82rem; font-weight: 600;
       text-decoration: none;
-      transition: border-color .2s, box-shadow .2s, color .2s;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      font-family: 'Sarabun', sans-serif;
     }
-    .contact-link i { font-size: .9rem; }
-    .contact-link.tg-group { border-color: rgba(0,200,255,.3); color: var(--neon); }
-    .contact-link.tg-group:hover {
-      border-color: var(--neon);
-      box-shadow: 0 0 14px rgba(0,200,255,.25);
+
+    .contact-btn.tg-channel {
+      background: rgba(0,136,204,0.15);
+      border: 1px solid rgba(0,136,204,0.4);
+      color: #29b6f6;
     }
-    .contact-link.tg-admin { border-color: rgba(100,180,255,.2); color: #AAC8FF; }
-    .contact-link.tg-admin:hover {
-      border-color: #AAC8FF;
-      box-shadow: 0 0 14px rgba(100,180,255,.2);
+
+    .contact-btn.tg-admin {
+      background: rgba(0,210,255,0.1);
+      border: 1px solid rgba(0,210,255,0.35);
+      color: var(--blue);
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(0,136,204,0.25);
     }
 
     /* ── ANTI-CHEAT MODAL ── */
-    .ac-overlay {
-      position: fixed; inset: 0; z-index: 900;
-      background: rgba(0,0,0,.85);
-      display: flex; align-items: center; justify-content: center;
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      animation: fadeIn .25s ease;
+      backdrop-filter: blur(4px);
     }
-    .ac-modal {
-      background: var(--surface);
-      border: 1px solid var(--danger);
+
+    .modal-overlay.hidden { display: none; }
+
+    .modal-box {
+      background: #10131a;
+      border: 1.5px solid rgba(255,64,96,0.5);
       border-radius: 16px;
       padding: 32px 28px;
-      max-width: 420px; width: 100%;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(255,82,82,.25);
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
-    }
-    .ac-modal::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      border-radius: 16px 16px 0 0;
-      background: linear-gradient(90deg, transparent, var(--danger), transparent);
-    }
-    .ac-icon {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(255,82,82,.1);
-      border: 1.5px solid var(--danger);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--danger); font-size: 1.8rem;
-    }
-    .ac-title {
-      font-size: 1.1rem; font-weight: 800; color: var(--danger);
-      letter-spacing: .05em;
-    }
-    .ac-msg {
-      font-size: .88rem; color: #CC8888; line-height: 1.6;
-    }
-    .ac-btn {
+      max-width: 400px;
       width: 100%;
-      padding: 13px;
-      background: var(--danger);
-      border: none; border-radius: 9px;
-      color: #fff; font-family: var(--font);
-      font-size: .95rem; font-weight: 700;
-      cursor: pointer;
-      transition: opacity .2s;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(255,64,96,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
     }
-    .ac-btn:hover { opacity: .85; }
+
+    .modal-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255,64,96,0.12);
+      border: 1.5px solid rgba(255,64,96,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--danger);
+    }
+    .modal-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--danger);
+      text-transform: uppercase;
+    }
+
+    .modal-msg {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: #ffccd5;
+    }
+
+    .modal-msg strong { color: #fff; }
+
+    .btn-modal-ok {
+      padding: 12px 36px;
+      background: transparent;
+      border: 1.5px solid var(--danger);
+      border-radius: 9px;
+      color: var(--danger);
+      font-family: 'Sarabun', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-modal-ok:hover {
+      background: rgba(255,64,96,0.1);
+      box-shadow: 0 0 16px rgba(255,64,96,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid rgba(0,210,255,0.08);
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'Share Tech Mono', monospace;
+      letter-spacing: 0.1em;
+    }
+
+    footer span { color: var(--blue); opacity: 0.7; }
+
+    .hidden { display: none !important; }
+
+    @keyframes flash-border {
+      0%   { border-color: rgba(0,255,170,0.8); box-shadow: 0 0 30px rgba(0,255,170,0.4); }
+      100% { border-color: rgba(0,210,255,0.18); box-shadow: 0 0 30px rgba(0,210,255,0.06); }
+    }
+
+    .card.flash { animation: flash-border 0.65s ease-out; }
   </style>
 </head>
 <body>
+<div class="wrapper">
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <div class="logo-wrap">
-      <img src="https://img2.pic.in.th/46834.png" alt="XENO MODS" />
-    </div>
-    <div class="header-text">
-      <h1><em>XENO</em> MODS</h1>
-      <p>Key Distribution System</p>
+  <!-- ANTI-CHEAT MODAL -->
+  <div class="modal-overlay hidden" id="cheatModal">
+    <div class="modal-box">
+      <div class="modal-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="modal-title">SECURITY ALERT</div>
+      <p class="modal-msg">
+        <strong>ตรวจพบความผิดปกติ!</strong><br/>
+        ระบบพบว่ามีการพยายามข้ามสเต็ป หรือเซสชันหมดอายุ<br/>
+        คุณต้องเริ่มต้นใหม่ทั้งหมด
+      </p>
+      <button class="btn-modal-ok" onclick="dismissCheatModal()">
+        <i class="fa-solid fa-rotate-left"></i> รับทราบ — เริ่มใหม่
+      </button>
     </div>
   </div>
-</header>
 
-<!-- MAIN -->
-<main>
-  <div id="app" class="screen"></div>
-</main>
+  <!-- HEADER -->
+  <header>
+    <img src="https://img2.pic.in.th/46834.png" alt="XENO MODS Logo" class="logo-img"
+         onerror="this.style.display='none'"/>
+    <div class="site-title">XENO MODS</div>
+    <div class="site-sub">KEY SYSTEM &mdash; FREE ACCESS</div>
+  </header>
 
-<!-- CONTACT ADMIN BAR -->
-<div class="contact-bar">
-  <span class="contact-bar-label"><i class="fa-solid fa-headset"></i>&nbsp; ติดต่อ</span>
-  <a class="contact-link tg-group" href="https://t.me/XenoChanel" target="_blank" rel="noopener noreferrer">
-    <i class="fa-brands fa-telegram"></i> กลุ่ม XENO MODS
-  </a>
-  <a class="contact-link tg-admin" href="https://t.me/Areeking" target="_blank" rel="noopener noreferrer">
-    <i class="fa-brands fa-telegram"></i> ติดต่อแอดมิน
-  </a>
+  <!-- MAIN -->
+  <main>
+
+    <!-- QUOTA BAR -->
+    <div class="quota-bar">
+      <i class="fa-solid fa-calendar-day"></i>
+      <span class="quota-text">วันนี้คุณรับคีย์ไปแล้ว:&nbsp;<strong id="quotaCount">0</strong>&nbsp;ครั้ง</span>
+    </div>
+
+    <!-- NOTICE -->
+    <div class="notice">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <p>คีย์ฟรีมีอายุ <strong>12 ชั่วโมง</strong> กรุณาคัดลอกและใช้งานเพียง <strong>1 คีย์</strong> เท่านั้น! ห้ามแจกต่อหรือนำไปขาย</p>
+    </div>
+
+    <!-- CHECKPOINT CARD -->
+    <div class="card" id="checkpointCard">
+      <div class="step-label"><i class="fa-solid fa-route" style="margin-right:6px;"></i>ความคืบหน้า</div>
+      <div class="step-dots" id="stepDots"></div>
+      <div class="step-count" id="stepCount">0/3</div>
+      <p class="step-desc" id="stepDesc">กรุณาผ่านลิ้งค์โฆษณา <strong>3 ครั้ง</strong><br/>เพื่อรับคีย์ฟรี</p>
+      <button class="btn-go" id="btnGo" onclick="handleStep()">
+        <i class="fa-solid fa-bolt"></i>
+        กดเพื่อไปสเต็ปถัดไป
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- KEY CARD (hidden until done) -->
+    <div class="key-card hidden" id="keyCard">
+      <div class="key-title">
+        <i class="fa-solid fa-circle-check"></i>
+        ผ่านครบแล้ว &mdash; นี่คือคีย์ของคุณ
+      </div>
+      <div class="key-badge">
+        <div class="key-value" id="keyDisplay">—</div>
+      </div>
+      <button class="btn-copy" onclick="copyKey()">
+        <i class="fa-regular fa-copy"></i> คัดลอกคีย์
+      </button>
+      <div class="copy-toast" id="copyToast">
+        <i class="fa-solid fa-check"></i> คัดลอกแล้ว!
+      </div>
+      <p class="key-expire">
+        <i class="fa-regular fa-clock"></i>
+        คีย์มีอายุ 12 ชั่วโมง นับจากเวลาที่คุณรับ<br/>
+        หากคีย์หมดอายุ ให้กดรีเซ็ตเพื่อรับคีย์ใหม่
+      </p>
+      <button class="btn-reset" onclick="resetSystem()">
+        <i class="fa-solid fa-rotate-left"></i> รีเซ็ต / รับคีย์ใหม่
+      </button>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+      <div class="contact-title">
+        <i class="fa-solid fa-headset"></i> ติดต่อและข่าวสาร
+      </div>
+      <div class="contact-links">
+        <a class="contact-btn tg-channel" href="https://t.me/XenoChanel" target="_blank" rel="noopener">
+          <i class="fa-brands fa-telegram"></i> ช่อง XENO MODS
+        </a>
+        <a class="contact-btn tg-admin" href="https://t.me/Arreking" target="_blank" rel="noopener">
+          <i class="fa-solid fa-user-shield"></i> ติดต่อแอดมิน
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <span>XENO MODS</span> &nbsp;|&nbsp; Powered by <span>@Arreking</span>
+  </footer>
+
 </div>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 <span>XENO MODS</span> — All Rights Reserved &nbsp;|&nbsp; Powered by <span>@Arreking</span></p>
-</footer>
-
-<div id="toast"></div>
-
-<!-- ANTI-CHEAT MODAL (hidden by default) -->
-<div class="ac-overlay" id="acOverlay" style="display:none;">
-  <div class="ac-modal">
-    <div class="ac-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-    <div class="ac-title">ตรวจพบการโกง!</div>
-    <div class="ac-msg" id="acMsg"></div>
-    <button class="ac-btn" onclick="dismissCheatModal()">
-      <i class="fa-solid fa-rotate-left"></i> รับทราบ — เริ่มใหม่
-    </button>
-  </div>
-</div>
-
 <script>
-// ════════════════════════════════════════════
-//  CONFIG
-// ════════════════════════════════════════════
-const TOTAL_STEPS  = 3;
-const AD_URL       = "https://loot-link.com/s?xxxxxxxxxxxxxxxx"; // ← ลิ้งค์ LootLabs ของคุณ
-const TG_URL       = "https://t.me/XenoChanel";                  // รับคีย์ผ่าน Telegram
-  const KEY_POOL = [
-  "XenoMods-12H-yAcPBZvSpa",
-  "XenoMods-12H-6kLxlTqC3K",
-  "XenoMods-12H-n4Px028VLm",
-  "XenoMods-12H-3Z1El5CFSd",
-  "XenoMods-12H-JsugdGUD4k",
-  "XenoMods-12H-gaskAZmnju",
-  "XenoMods-12H-grfby3M9j8",
-  "XenoMods-12H-U7gHOWyTsj",
-  "XenoMods-12H-cVGTeMhSmi",
-  "XenoMods-12H-RJycVXTlrs",
-  "XenoMods-12H-XH9ZkUzb6w",
-  "XenoMods-12H-T8Bjxe506v",
-  "XenoMods-12H-xRSIUFnGH1",
-  "XenoMods-12H-RBT72VHyWN",
-  "XenoMods-12H-ISiDc0yn38",
-  "XenoMods-12H-C4BMcYOKxm",
-  "XenoMods-12H-sXk8Kl91Y5",
-  "XenoMods-12H-1ZbhHsRLaD",
-  "XenoMods-12H-wgVi0FyS4e",
-  "XenoMods-12H-4MlAf1KEi6",
-  "XenoMods-12H-NrDfu9xoXa",
-  "XenoMods-12H-ZS69g7Wv5t",
-  "XenoMods-12H-otaYTkeMCF",
-  "XenoMods-12H-WqwNryo0GQ",
-  "XenoMods-12H-jSeptLGc2T",
-  "XenoMods-12H-hcA7bwle1O",
-  "XenoMods-12H-bOQg2pEfUq",
-  "XenoMods-12H-wrUP9i1OXd",
-  "XenoMods-12H-5AhgaU6d3H",
-  "XenoMods-12H-y4Ys70hOfQ",
-  "XenoMods-12H-1OZoTXDrK7",
-  "XenoMods-12H-i2Gf1Xd8SF",
-  "XenoMods-12H-Qox5zh14gr",
-  "XenoMods-12H-32jpBt8Hiw",
-  "XenoMods-12H-LDiNHo0aQT",
-  "XenoMods-12H-F2SqpOLR1u",
-  "XenoMods-12H-2dbjErJaLz",
-  "XenoMods-12H-metnxq8uIT",
-  "XenoMods-12H-VHnZBNkcRJ",
-  "XenoMods-12H-5zHp7biv8w",
-  "XenoMods-12H-tQn2PKJcx1",
-  "XenoMods-12H-ZGhp0JN4sm",
-  "XenoMods-12H-HcqxSGzQgB",
-  "XenoMods-12H-WILo3iD2rc",
-  "XenoMods-12H-rQm0G3XFn1",
-  "XenoMods-12H-CBZeTGPuXi",
-  "XenoMods-12H-uS7bLhB2F5",
-  "XenoMods-12H-lpayAh9ZqH",
-  "XenoMods-12H-ag4o8Ix1Yj",
-  "XenoMods-12H-4HD9rj1sVM"
-];
-const SS_STEP      = 'xeno_ss_step';      // sessionStorage — รีเซ็ตเมื่อปิดแท็บ
-const SS_TOKEN     = 'xeno_ss_token';     // sessionStorage — token ยืนยัน session
-const LS_DAILY     = 'xeno_daily';        // localStorage  — { date, count }
-const LS_KEY_SAVED = 'xeno_last_key';     // localStorage  — คีย์ล่าสุด (optional display)
+  // ── CONFIG ───────────────────────────────────────────────────────
+  const AD_LINK   = 'https://t.me/XenoChanel'; // เปลี่ยนเป็น LootLabs link จริง
+  const MAX_STEPS = 3;
 
-// ════════════════════════════════════════════
-//  SESSION HELPERS
-// ════════════════════════════════════════════
-function initSession() {
-  // สร้าง token ใหม่ถ้ายังไม่มี (เริ่ม session ใหม่)
-  if (!sessionStorage.getItem(SS_TOKEN)) {
-    sessionStorage.setItem(SS_TOKEN, 'valid_' + Date.now());
-    sessionStorage.setItem(SS_STEP, '0');
+  // localStorage keys (device tracking / quota)
+  const LS_KEY        = 'xeno_key';
+  const LS_KEY_DONE   = 'xeno_key_done';   // บันทึกว่าผ่านสำเร็จรอบนี้แล้ว
+  const LS_QUOTA_DATE = 'xeno_quota_date'; // วันที่บันทึกโควตา
+  const LS_QUOTA_CNT  = 'xeno_quota_cnt';  // จำนวนครั้งที่รับคีย์วันนี้
+
+  // sessionStorage keys (anti-cheat — รีเซ็ตเมื่อปิดแท็บ/เบราว์เซอร์)
+  const SS_STEP    = 'xeno_ss_step';
+  const SS_TOKEN   = 'xeno_ss_token';  // token ยืนยัน session ถูกต้อง
+  const SS_CLICKED = 'xeno_ss_clicked'; // flag ว่าเพิ่งกดปุ่มไปแล้ว (ป้องกัน skip)
+
+  // ── HELPERS ─────────────────────────────────────────────────────
+  function genToken() {
+    return Math.random().toString(36).slice(2) + Date.now().toString(36);
   }
-}
 
-function getStep() {
-  return parseInt(sessionStorage.getItem(SS_STEP) || '0');
-}
-
-function setStep(n) {
-  sessionStorage.setItem(SS_STEP, String(n));
-}
-
-function resetSession() {
-  sessionStorage.removeItem(SS_TOKEN);
-  sessionStorage.removeItem(SS_STEP);
-}
-
-// ════════════════════════════════════════════
-//  DAILY COUNTER HELPERS
-// ════════════════════════════════════════════
-function getTodayStr() {
-  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
-}
-
-function getDailyCount() {
-  try {
-    const raw = localStorage.getItem(LS_DAILY);
-    if (!raw) return 0;
-    const obj = JSON.parse(raw);
-    if (obj.date !== getTodayStr()) return 0; // ข้ามวัน → 0
-    return obj.count || 0;
-  } catch { return 0; }
-}
-
-function incrementDailyCount() {
-  const count = getDailyCount() + 1;
-  localStorage.setItem(LS_DAILY, JSON.stringify({ date: getTodayStr(), count }));
-  return count;
-}
-
-// ════════════════════════════════════════════
-//  ANTI-CHEAT
-// ════════════════════════════════════════════
-function showCheatModal(msg) {
-  document.getElementById('acMsg').innerHTML = msg;
-  document.getElementById('acOverlay').style.display = 'flex';
-}
-
-function dismissCheatModal() {
-  document.getElementById('acOverlay').style.display = 'none';
-  resetSession();
-  initSession();
-  render();
-}
-
-// ตรวจสอบว่า step ที่บันทึกใน sessionStorage ถูกต้องหรือไม่
-function validateSession() {
-  const token = sessionStorage.getItem(SS_TOKEN);
-  const step  = getStep();
-  if (!token && step > 0) {
-    // มี step แต่ไม่มี token — พยายามโกงผ่าน storage manipulation
-    showCheatModal('คุณต้องข้ามคีย์ใหม่ทั้งหมด เพราะคุณโกงใช้สแปม 55555 ไอักระจอกไปทำใหม่เลยมึง');
-    return false;
+  function todayStr() {
+    return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   }
-  return true;
-}
 
-// ════════════════════════════════════════════
-//  RENDER
-// ════════════════════════════════════════════
-const app = document.getElementById('app');
-
-function render() {
-  if (!validateSession()) return;
-  const step = getStep();
-  if (step >= TOTAL_STEPS) {
-    renderFinalStep();
-  } else {
-    renderCheckpointScreen(step);
+  function getQuota() {
+    const saved = localStorage.getItem(LS_QUOTA_DATE);
+    if (saved !== todayStr()) {
+      localStorage.setItem(LS_QUOTA_DATE, todayStr());
+      localStorage.setItem(LS_QUOTA_CNT, '0');
+      return 0;
+    }
+    return parseInt(localStorage.getItem(LS_QUOTA_CNT) || '0', 10);
   }
-}
 
-// ── CHECKPOINT SCREEN ──────────────────────
-function renderCheckpointScreen(step) {
-  const remaining = TOTAL_STEPS - step;
-  const pct = Math.round((step / TOTAL_STEPS) * 100);
-  const dailyCount = getDailyCount();
+  function bumpQuota() {
+    getQuota(); // ensure date reset if needed
+    const n = parseInt(localStorage.getItem(LS_QUOTA_CNT) || '0', 10) + 1;
+    localStorage.setItem(LS_QUOTA_CNT, n);
+    document.getElementById('quotaCount').textContent = n;
+  }
 
-  const dotsHTML = Array.from({ length: TOTAL_STEPS }, (_, i) =>
-    `<div class="step-dot ${i < step ? 'done' : ''}"><span>${i + 1}</span></div>`
-  ).join('');
+  function renderQuota() {
+    document.getElementById('quotaCount').textContent = getQuota();
+  }
 
-  const iconHTML = step === 0
-    ? '<i class="fa-solid fa-key"></i>'
-    : step < TOTAL_STEPS - 1
-      ? '<i class="fa-solid fa-bolt"></i>'
-      : '<i class="fa-solid fa-flag-checkered"></i>';
+  // ── KEY POOL ─────────────────────────────────────────────────────
+  // สร้าง 100 คีย์แบบ pseudo-random ด้วย seeded approach
+  const KEY_POOL = (function() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const pool = [];
+    let s = 48271; // seed
+    function rng() { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; }
+    function seg() { return Array.from({length:6}, () => chars[Math.floor(rng()*chars.length)]).join(''); }
+    for (let i = 0; i < 100; i++) {
+      pool.push(`XENO-${seg()}-${seg()}-${Math.floor(rng()*99999).toString(16).toUpperCase().padStart(5,'0')}`);
+    }
+    return pool;
+  })();
 
-  const titleText = step === 0
-    ? 'ยืนยันตัวตนเพื่อรับคีย์ฟรี'
-    : step < TOTAL_STEPS - 1
-      ? `ผ่านมาแล้ว ${step} ขั้นตอน — ยอดเยี่ยม!`
-      : 'ขั้นตอนสุดท้ายแล้ว!';
+  // ── ANTI-CHEAT ───────────────────────────────────────────────────
+  function showCheatModal(cb) {
+    document.getElementById('cheatModal').classList.remove('hidden');
+    window._cheatCb = cb;
+  }
 
-  const descText = step === 0
-    ? `ระบบต้องการให้คุณผ่านลิ้งค์ยืนยัน <strong>${TOTAL_STEPS} ครั้ง</strong> เพื่อปลดล็อกคีย์ฟรี`
-    : `คุณต้องผ่านลิ้งค์ยืนยันอีก <strong>${remaining} ครั้ง</strong> เพื่อรับคีย์ฟรี`;
+  function dismissCheatModal() {
+    document.getElementById('cheatModal').classList.add('hidden');
+    hardReset();
+    if (typeof window._cheatCb === 'function') window._cheatCb();
+  }
 
-  app.innerHTML = `
-    <div class="screen">
+  function hardReset() {
+    sessionStorage.removeItem(SS_STEP);
+    sessionStorage.removeItem(SS_TOKEN);
+    sessionStorage.removeItem(SS_CLICKED);
+    localStorage.removeItem(LS_KEY);
+    localStorage.removeItem(LS_KEY_DONE);
+    document.getElementById('keyCard').classList.add('hidden');
+    document.getElementById('checkpointCard').classList.remove('hidden');
+    document.getElementById('btnGo').disabled = false;
+    renderStep(0);
+  }
 
-      <!-- Daily counter badge -->
-      <div class="daily-badge">
-        <i class="fa-solid fa-calendar-check"></i>
-        วันนี้คุณรับคีย์ไปแล้ว: <strong>${dailyCount} ครั้ง</strong>
-      </div>
+  // ── STEP RENDER ──────────────────────────────────────────────────
+  function renderDots(current) {
+    const container = document.getElementById('stepDots');
+    container.innerHTML = '';
+    for (let i = 0; i < MAX_STEPS; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i < current ? ' done' : '');
+      container.appendChild(d);
+    }
+  }
 
-      <!-- Progress -->
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span class="progress-title"><i class="fa-solid fa-chart-simple"></i>&nbsp; ความคืบหน้า</span>
-          <span class="progress-count"><span>${step}</span>/${TOTAL_STEPS}</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="width:${pct}%"></div>
-        </div>
-        <div class="step-dots">${dotsHTML}</div>
-      </div>
+  function renderStep(step) {
+    document.getElementById('stepCount').textContent = `${step}/${MAX_STEPS}`;
+    renderDots(step);
+    const rem = MAX_STEPS - step;
+    if (rem > 0) {
+      document.getElementById('stepDesc').innerHTML =
+        `คุณต้องผ่านลิ้งค์โฆษณาอีก <strong>${rem} ครั้ง</strong><br/>เพื่อรับคีย์ฟรี`;
+    }
+  }
 
-      <!-- Card -->
-      <div class="center-card">
-        <div class="step-icon">${iconHTML}</div>
+  function showKey(key) {
+    document.getElementById('checkpointCard').classList.add('hidden');
+    document.getElementById('keyCard').classList.remove('hidden');
+    document.getElementById('keyDisplay').textContent = key;
+  }
 
-        <div class="card-title">${titleText}</div>
+  // ── HANDLE STEP (MAIN LOGIC) ─────────────────────────────────────
+  function handleStep() {
+    // ตรวจสอบ token ใน sessionStorage
+    const token = sessionStorage.getItem(SS_TOKEN);
+    const rawStep = sessionStorage.getItem(SS_STEP);
+    const step = parseInt(rawStep || '0', 10);
 
-        <div class="card-desc">${descText}</div>
+    // หาก token มีแต่ step ไม่ตรง = โกง
+    if (token && rawStep === null) {
+      showCheatModal(); return;
+    }
 
-        <div class="remain-badge">
-          <i class="fa-solid fa-hourglass-half"></i>&nbsp;
-          ต้องผ่านอีก ${remaining} ครั้ง จาก ${TOTAL_STEPS} ครั้ง
-        </div>
+    if (step >= MAX_STEPS) {
+      // ไม่ควรกดได้ถ้าผ่านแล้ว
+      const savedKey = localStorage.getItem(LS_KEY);
+      if (savedKey) { showKey(savedKey); }
+      return;
+    }
 
-        <button class="cta-btn" id="adBtn" onclick="handleAdClick()">
-          <span>
-            <i class="fa-solid fa-bolt"></i>&nbsp;&nbsp;กดเพื่อไปสเต็ปถัดไป &nbsp;(${step + 1}/${TOTAL_STEPS})
-          </span>
-        </button>
+    // บล็อกปุ่มชั่วคราวเพื่อป้องกัน double-click
+    const btn = document.getElementById('btnGo');
+    btn.disabled = true;
 
-        <div class="cooldown-note">
-          <span class="live-dot"></span>
-          <span>กดปุ่มแล้วรอโฆษณาโหลด จากนั้นกลับมากดซ้ำ</span>
-        </div>
-      </div>
+    // ตั้ง flag ว่ากดปุ่มจริง
+    sessionStorage.setItem(SS_CLICKED, '1');
 
-    </div>
-  `;
-}
+    // เปิดลิ้งค์โฆษณา
+    window.open(AD_LINK, '_blank');
 
-// ── STEP 3 (FINAL) → ปุ่มรับคีย์ผ่าน Telegram ──
-function renderFinalStep() {
-  const dailyCount = getDailyCount();
+    const newStep = step + 1;
+    sessionStorage.setItem(SS_STEP, newStep);
 
-  app.innerHTML = `
-    <div class="screen">
+    // สร้าง token ใหม่ทุกครั้งที่กด
+    sessionStorage.setItem(SS_TOKEN, genToken());
 
-      <!-- Daily counter badge -->
-      <div class="daily-badge">
-        <i class="fa-solid fa-calendar-check"></i>
-        วันนี้คุณรับคีย์ไปแล้ว: <strong>${dailyCount} ครั้ง</strong>
-      </div>
+    renderStep(newStep);
 
-      <!-- Progress (full) -->
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span class="progress-title"><i class="fa-solid fa-chart-simple"></i>&nbsp; ความคืบหน้า</span>
-          <span class="progress-count"><span>${TOTAL_STEPS}</span>/${TOTAL_STEPS}</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="width:100%"></div>
-        </div>
-        <div class="step-dots">
-          ${Array.from({ length: TOTAL_STEPS }, (_, i) =>
-            `<div class="step-dot done"><span>${i + 1}</span></div>`
-          ).join('')}
-        </div>
-      </div>
+    // flash
+    const card = document.getElementById('checkpointCard');
+    card.classList.remove('flash');
+    void card.offsetWidth;
+    card.classList.add('flash');
 
-      <!-- Card -->
-      <div class="center-card">
-        <div class="step-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+    setTimeout(() => {
+      btn.disabled = false;
+      if (newStep >= MAX_STEPS) {
+        // สุ่มคีย์และแสดง
+        const idx = Math.floor(Math.random() * KEY_POOL.length);
+        const key = KEY_POOL[idx];
+        localStorage.setItem(LS_KEY, key);
+        localStorage.setItem(LS_KEY_DONE, '1');
+        bumpQuota();
+        showKey(key);
+      }
+    }, 700);
+  }
 
-        <div class="card-title">ผ่านครบ ${TOTAL_STEPS} ขั้นตอนแล้ว!</div>
+  // ── COPY ─────────────────────────────────────────────────────────
+  function copyKey() {
+    const key = document.getElementById('keyDisplay').textContent;
+    navigator.clipboard.writeText(key).then(() => {
+      const t = document.getElementById('copyToast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    });
+  }
 
-        <div class="card-desc">
-          กดปุ่มด้านล่างเพื่อเข้ากลุ่ม Telegram และรับคีย์ฟรีของคุณจากแอดมินได้เลย
-        </div>
+  // ── RESET ────────────────────────────────────────────────────────
+  function resetSystem() {
+    if (!confirm('ต้องการรีเซ็ตและรับคีย์ใหม่หรือไม่?\n(ต้องผ่านลิ้งค์โฆษณาอีก 3 ครั้ง)')) return;
+    hardReset();
+  }
 
-        <div class="remain-badge" style="border-color:var(--green);color:var(--green);background:rgba(0,230,118,.08);">
-          <i class="fa-solid fa-circle-check"></i>&nbsp; พร้อมรับคีย์แล้ว!
-        </div>
+  // ── VISIBILITY / FOCUS GUARD (anti-cheat) ───────────────────────
+  // เมื่อผู้ใช้กลับมาที่หน้า ตรวจว่า session ยังถูกต้องหรือไม่
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+      validateSession();
+    }
+  });
 
-        <button class="cta-btn" id="adBtn" onclick="handleTelegramClick()" style="background:linear-gradient(135deg,#0066BB,#0099CC);">
-          <span>
-            <i class="fa-brands fa-telegram"></i>&nbsp;&nbsp;รับคีย์ผ่าน Telegram
-          </span>
-        </button>
+  window.addEventListener('focus', validateSession);
 
-        <div class="cooldown-note">
-          <span class="live-dot" style="background:var(--green);box-shadow:0 0 6px var(--green);"></span>
-          <span>กดเพื่อเข้ากลุ่ม — แอดมินจะส่งคีย์ให้คุณ</span>
-        </div>
-      </div>
+  function validateSession() {
+    const token   = sessionStorage.getItem(SS_TOKEN);
+    const rawStep = sessionStorage.getItem(SS_STEP);
+    const step    = parseInt(rawStep || '0', 10);
+    const clicked = sessionStorage.getItem(SS_CLICKED);
+    const done    = localStorage.getItem(LS_KEY_DONE);
 
-    </div>
-  `;
-}
+    // ถ้า done แล้วไม่ต้องตรวจ
+    if (done && localStorage.getItem(LS_KEY)) return;
 
-// ════════════════════════════════════════════
-//  ACTIONS
-// ════════════════════════════════════════════
-function handleAdClick() {
-  if (!validateSession()) return;
-  const btn = document.getElementById('adBtn');
-  if (!btn) return;
+    // ถ้า step > 0 แต่ไม่มี token = โกง (แก้ sessionStorage โดยตรง)
+    if (step > 0 && !token) {
+      showCheatModal(); return;
+    }
 
-  // เปิดลิ้งค์โฆษณาในแท็บใหม่ (สเต็ป 1 และ 2)
-  window.open(AD_URL, '_blank', 'noopener,noreferrer');
+    // ถ้ามี token แต่ไม่เคย click = โกง
+    if (token && !clicked && step > 0) {
+      showCheatModal(); return;
+    }
+  }
 
-  // เพิ่ม step ใน sessionStorage
-  const newStep = getStep() + 1;
-  setStep(newStep);
+  // ── INIT ─────────────────────────────────────────────────────────
+  (function init() {
+    renderQuota();
 
-  btn.disabled = true;
-  btn.querySelector('span').innerHTML = '<i class="fa-solid fa-circle-check"></i>&nbsp; บันทึกแล้ว กำลังอัปเดต…';
+    const done    = localStorage.getItem(LS_KEY_DONE);
+    const savedKey = localStorage.getItem(LS_KEY);
+    const ssStep  = parseInt(sessionStorage.getItem(SS_STEP) || '0', 10);
 
-  setTimeout(() => {
-    render();
-    showToast(newStep >= TOTAL_STEPS
-      ? 'ครบแล้ว! กดรับคีย์ผ่าน Telegram ได้เลย'
-      : `ผ่านแล้ว ${newStep}/${TOTAL_STEPS} ครั้ง`
-    );
-  }, 600);
-}
+    if (done && savedKey) {
+      // ผ่านแล้ว แสดงคีย์เลย (ไม่ต้องมี session)
+      renderStep(MAX_STEPS);
+      showKey(savedKey);
+      return;
+    }
 
-function handleTelegramClick() {
-  if (!validateSession()) return;
-
-  // นับโควตาต่อวัน
-  incrementDailyCount();
-
-  // เปิด Telegram กลุ่ม
-  window.open(TG_URL, '_blank', 'noopener,noreferrer');
-
-  // รีเซ็ต session เพื่อให้เริ่มใหม่ถ้าต้องการคีย์อีก
-  resetSession();
-  initSession();
-
-  setTimeout(() => {
-    render();
-    showToast('เปิด Telegram แล้ว — รอรับคีย์จากแอดมินได้เลย!');
-  }, 500);
-}
-
-// ════════════════════════════════════════════
-//  TOAST
-// ════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.innerHTML = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2600);
-}
-
-// ════════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════════
-initSession();
-render();
+    // session ใหม่ = รีเซ็ต step เสมอ (ปิดแท็บ/เบราว์เซอร์แล้วกลับมา)
+    if (!sessionStorage.getItem(SS_TOKEN) && ssStep === 0) {
+      renderStep(0);
+    } else {
+      renderStep(ssStep);
+    }
+  })();
 </script>
 </body>
 </html>
- 
-  
+
 
