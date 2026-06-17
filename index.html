@@ -612,7 +612,351 @@
 //  CONFIG
 // ════════════════════════════════════════════
 const TOTAL_STEPS  = 3;
-const AD_URL       = "https://loot-link.com/s?xxxxxxxxxxxxxxxx"; // ← ลิ้งค์ LootLabs ของคุณ
 const TG_URL       = "https://t.me/XenoChanel";                  // รับคีย์ผ่าน Telegram
+  const KEY_POOL = [
+  "XenoMods-12H-yAcPBZvSpa",
+  "XenoMods-12H-6kLxlTqC3K",
+  "XenoMods-12H-n4Px028VLm",
+  "XenoMods-12H-3Z1El5CFSd",
+  "XenoMods-12H-JsugdGUD4k",
+  "XenoMods-12H-gaskAZmnju",
+  "XenoMods-12H-grfby3M9j8",
+  "XenoMods-12H-U7gHOWyTsj",
+  "XenoMods-12H-cVGTeMhSmi",
+  "XenoMods-12H-RJycVXTlrs",
+  "XenoMods-12H-XH9ZkUzb6w",
+  "XenoMods-12H-T8Bjxe506v",
+  "XenoMods-12H-xRSIUFnGH1",
+  "XenoMods-12H-RBT72VHyWN",
+  "XenoMods-12H-ISiDc0yn38",
+  "XenoMods-12H-C4BMcYOKxm",
+  "XenoMods-12H-sXk8Kl91Y5",
+  "XenoMods-12H-1ZbhHsRLaD",
+  "XenoMods-12H-wgVi0FyS4e",
+  "XenoMods-12H-4MlAf1KEi6",
+  "XenoMods-12H-NrDfu9xoXa",
+  "XenoMods-12H-ZS69g7Wv5t",
+  "XenoMods-12H-otaYTkeMCF",
+  "XenoMods-12H-WqwNryo0GQ",
+  "XenoMods-12H-jSeptLGc2T",
+  "XenoMods-12H-hcA7bwle1O",
+  "XenoMods-12H-bOQg2pEfUq",
+  "XenoMods-12H-wrUP9i1OXd",
+  "XenoMods-12H-5AhgaU6d3H",
+  "XenoMods-12H-y4Ys70hOfQ",
+  "XenoMods-12H-1OZoTXDrK7",
+  "XenoMods-12H-i2Gf1Xd8SF",
+  "XenoMods-12H-Qox5zh14gr",
+  "XenoMods-12H-32jpBt8Hiw",
+  "XenoMods-12H-LDiNHo0aQT",
+  "XenoMods-12H-F2SqpOLR1u",
+  "XenoMods-12H-2dbjErJaLz",
+  "XenoMods-12H-metnxq8uIT",
+  "XenoMods-12H-VHnZBNkcRJ",
+  "XenoMods-12H-5zHp7biv8w",
+  "XenoMods-12H-tQn2PKJcx1",
+  "XenoMods-12H-ZGhp0JN4sm",
+  "XenoMods-12H-HcqxSGzQgB",
+  "XenoMods-12H-WILo3iD2rc",
+  "XenoMods-12H-rQm0G3XFn1",
+  "XenoMods-12H-CBZeTGPuXi",
+  "XenoMods-12H-uS7bLhB2F5",
+  "XenoMods-12H-lpayAh9ZqH",
+  "XenoMods-12H-ag4o8Ix1Yj",
+  "XenoMods-12H-4HD9rj1sVM"
+];
+const SS_STEP      = 'xeno_ss_step';      // sessionStorage — รีเซ็ตเมื่อปิดแท็บ
+const SS_TOKEN     = 'xeno_ss_token';     // sessionStorage — token ยืนยัน session
+const LS_DAILY     = 'xeno_daily';        // localStorage  — { date, count }
+const LS_KEY_SAVED = 'xeno_last_key';     // localStorage  — คีย์ล่าสุด (optional display)
+
+// ════════════════════════════════════════════
+//  SESSION HELPERS
+// ════════════════════════════════════════════
+function initSession() {
+  // สร้าง token ใหม่ถ้ายังไม่มี (เริ่ม session ใหม่)
+  if (!sessionStorage.getItem(SS_TOKEN)) {
+    sessionStorage.setItem(SS_TOKEN, 'valid_' + Date.now());
+    sessionStorage.setItem(SS_STEP, '0');
+  }
+}
+
+function getStep() {
+  return parseInt(sessionStorage.getItem(SS_STEP) || '0');
+}
+
+function setStep(n) {
+  sessionStorage.setItem(SS_STEP, String(n));
+}
+
+function resetSession() {
+  sessionStorage.removeItem(SS_TOKEN);
+  sessionStorage.removeItem(SS_STEP);
+}
+
+// ════════════════════════════════════════════
+//  DAILY COUNTER HELPERS
+// ════════════════════════════════════════════
+function getTodayStr() {
+  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+}
+
+function getDailyCount() {
+  try {
+    const raw = localStorage.getItem(LS_DAILY);
+    if (!raw) return 0;
+    const obj = JSON.parse(raw);
+    if (obj.date !== getTodayStr()) return 0; // ข้ามวัน → 0
+    return obj.count || 0;
+  } catch { return 0; }
+}
+
+function incrementDailyCount() {
+  const count = getDailyCount() + 1;
+  localStorage.setItem(LS_DAILY, JSON.stringify({ date: getTodayStr(), count }));
+  return count;
+}
+
+// ════════════════════════════════════════════
+//  ANTI-CHEAT
+// ════════════════════════════════════════════
+function showCheatModal(msg) {
+  document.getElementById('acMsg').innerHTML = msg;
+  document.getElementById('acOverlay').style.display = 'flex';
+}
+
+function dismissCheatModal() {
+  document.getElementById('acOverlay').style.display = 'none';
+  resetSession();
+  initSession();
+  render();
+}
+
+// ตรวจสอบว่า step ที่บันทึกใน sessionStorage ถูกต้องหรือไม่
+function validateSession() {
+  const token = sessionStorage.getItem(SS_TOKEN);
+  const step  = getStep();
+  if (!token && step > 0) {
+    // มี step แต่ไม่มี token — พยายามโกงผ่าน storage manipulation
+    showCheatModal('คุณต้องข้ามคีย์ใหม่ทั้งหมด เพราะคุณโกงใช้สแปม 55555 ไอักระจอกไปทำใหม่เลยมึง');
+    return false;
+  }
+  return true;
+}
+
+// ════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════
+const app = document.getElementById('app');
+
+function render() {
+  if (!validateSession()) return;
+  const step = getStep();
+  if (step >= TOTAL_STEPS) {
+    renderFinalStep();
+  } else {
+    renderCheckpointScreen(step);
+  }
+}
+
+// ── CHECKPOINT SCREEN ──────────────────────
+function renderCheckpointScreen(step) {
+  const remaining = TOTAL_STEPS - step;
+  const pct = Math.round((step / TOTAL_STEPS) * 100);
+  const dailyCount = getDailyCount();
+
+  const dotsHTML = Array.from({ length: TOTAL_STEPS }, (_, i) =>
+    `<div class="step-dot ${i < step ? 'done' : ''}"><span>${i + 1}</span></div>`
+  ).join('');
+
+  const iconHTML = step === 0
+    ? '<i class="fa-solid fa-key"></i>'
+    : step < TOTAL_STEPS - 1
+      ? '<i class="fa-solid fa-bolt"></i>'
+      : '<i class="fa-solid fa-flag-checkered"></i>';
+
+  const titleText = step === 0
+    ? 'ยืนยันตัวตนเพื่อรับคีย์ฟรี'
+    : step < TOTAL_STEPS - 1
+      ? `ผ่านมาแล้ว ${step} ขั้นตอน — ยอดเยี่ยม!`
+      : 'ขั้นตอนสุดท้ายแล้ว!';
+
+  const descText = step === 0
+    ? `ระบบต้องการให้คุณผ่านลิ้งค์ยืนยัน <strong>${TOTAL_STEPS} ครั้ง</strong> เพื่อปลดล็อกคีย์ฟรี`
+    : `คุณต้องผ่านลิ้งค์ยืนยันอีก <strong>${remaining} ครั้ง</strong> เพื่อรับคีย์ฟรี`;
+
+  app.innerHTML = `
+    <div class="screen">
+
+      <!-- Daily counter badge -->
+      <div class="daily-badge">
+        <i class="fa-solid fa-calendar-check"></i>
+        วันนี้คุณรับคีย์ไปแล้ว: <strong>${dailyCount} ครั้ง</strong>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-title"><i class="fa-solid fa-chart-simple"></i>&nbsp; ความคืบหน้า</span>
+          <span class="progress-count"><span>${step}</span>/${TOTAL_STEPS}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="step-dots">${dotsHTML}</div>
+      </div>
+
+      <!-- Card -->
+      <div class="center-card">
+        <div class="step-icon">${iconHTML}</div>
+
+        <div class="card-title">${titleText}</div>
+
+        <div class="card-desc">${descText}</div>
+
+        <div class="remain-badge">
+          <i class="fa-solid fa-hourglass-half"></i>&nbsp;
+          ต้องผ่านอีก ${remaining} ครั้ง จาก ${TOTAL_STEPS} ครั้ง
+        </div>
+
+        <button class="cta-btn" id="adBtn" onclick="handleAdClick()">
+          <span>
+            <i class="fa-solid fa-bolt"></i>&nbsp;&nbsp;กดเพื่อไปสเต็ปถัดไป &nbsp;(${step + 1}/${TOTAL_STEPS})
+          </span>
+        </button>
+
+        <div class="cooldown-note">
+          <span class="live-dot"></span>
+          <span>กดปุ่มแล้วรอโฆษณาโหลด จากนั้นกลับมากดซ้ำ</span>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// ── STEP 3 (FINAL) → ปุ่มรับคีย์ผ่าน Telegram ──
+function renderFinalStep() {
+  const dailyCount = getDailyCount();
+
+  app.innerHTML = `
+    <div class="screen">
+
+      <!-- Daily counter badge -->
+      <div class="daily-badge">
+        <i class="fa-solid fa-calendar-check"></i>
+        วันนี้คุณรับคีย์ไปแล้ว: <strong>${dailyCount} ครั้ง</strong>
+      </div>
+
+      <!-- Progress (full) -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-title"><i class="fa-solid fa-chart-simple"></i>&nbsp; ความคืบหน้า</span>
+          <span class="progress-count"><span>${TOTAL_STEPS}</span>/${TOTAL_STEPS}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:100%"></div>
+        </div>
+        <div class="step-dots">
+          ${Array.from({ length: TOTAL_STEPS }, (_, i) =>
+            `<div class="step-dot done"><span>${i + 1}</span></div>`
+          ).join('')}
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="center-card">
+        <div class="step-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+
+        <div class="card-title">ผ่านครบ ${TOTAL_STEPS} ขั้นตอนแล้ว!</div>
+
+        <div class="card-desc">
+          กดปุ่มด้านล่างเพื่อเข้ากลุ่ม Telegram และรับคีย์ฟรีของคุณจากแอดมินได้เลย
+        </div>
+
+        <div class="remain-badge" style="border-color:var(--green);color:var(--green);background:rgba(0,230,118,.08);">
+          <i class="fa-solid fa-circle-check"></i>&nbsp; พร้อมรับคีย์แล้ว!
+        </div>
+
+        <button class="cta-btn" id="adBtn" onclick="handleTelegramClick()" style="background:linear-gradient(135deg,#0066BB,#0099CC);">
+          <span>
+            <i class="fa-brands fa-telegram"></i>&nbsp;&nbsp;รับคีย์ผ่าน Telegram
+          </span>
+        </button>
+
+        <div class="cooldown-note">
+          <span class="live-dot" style="background:var(--green);box-shadow:0 0 6px var(--green);"></span>
+          <span>กดเพื่อเข้ากลุ่ม — แอดมินจะส่งคีย์ให้คุณ</span>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// ════════════════════════════════════════════
+//  ACTIONS
+// ════════════════════════════════════════════
+function handleAdClick() {
+  if (!validateSession()) return;
+  const btn = document.getElementById('adBtn');
+  if (!btn) return;
+
+  // เปิดลิ้งค์โฆษณาในแท็บใหม่ (สเต็ป 1 และ 2)
+  window.open(AD_URL, '_blank', 'noopener,noreferrer');
+
+  // เพิ่ม step ใน sessionStorage
+  const newStep = getStep() + 1;
+  setStep(newStep);
+
+  btn.disabled = true;
+  btn.querySelector('span').innerHTML = '<i class="fa-solid fa-circle-check"></i>&nbsp; บันทึกแล้ว กำลังอัปเดต…';
+
+  setTimeout(() => {
+    render();
+    showToast(newStep >= TOTAL_STEPS
+      ? 'ครบแล้ว! กดรับคีย์ผ่าน Telegram ได้เลย'
+      : `ผ่านแล้ว ${newStep}/${TOTAL_STEPS} ครั้ง`
+    );
+  }, 600);
+}
+
+function handleTelegramClick() {
+  if (!validateSession()) return;
+
+  // นับโควตาต่อวัน
+  incrementDailyCount();
+
+  // เปิด Telegram กลุ่ม
+  window.open(TG_URL, '_blank', 'noopener,noreferrer');
+
+  // รีเซ็ต session เพื่อให้เริ่มใหม่ถ้าต้องการคีย์อีก
+  resetSession();
+  initSession();
+
+  setTimeout(() => {
+    render();
+    showToast('เปิด Telegram แล้ว — รอรับคีย์จากแอดมินได้เลย!');
+  }, 500);
+}
+
+// ════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+initSession();
+render();
+</script>
+</body>
+</html>
+ 
   
 
