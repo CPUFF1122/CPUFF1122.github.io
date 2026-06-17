@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XENO MODS — GET KEY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #07080C;
+      --surface:     #0E1018;
+      --surface2:    #131620;
+      --border:      #1C2235;
+      --neon:        #00C8FF;
+      --neon-glow:   rgba(0,200,255,.45);
+      --neon-dim:    #0072B2;
+      --neon-soft:   rgba(0,200,255,.08);
+      --green:       #00E676;
+      --green-glow:  rgba(0,230,118,.4);
+      --white:       #E8F0FF;
+      --muted:       #5A6A88;
+      --warn:        #FFB347;
+      --danger:      #FF5252;
+      --radius:      12px;
+      --font:        'Sarabun', -apple-system, 'Helvetica Neue', sans-serif;
+      --mono:        'Share Tech Mono', monospace;
+      --total:       5;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* ── SCAN LINE ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,200,255,.018) 3px, rgba(0,200,255,.018) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ── AMBIENT BLOBS ── */
+    .blob {
+      position: fixed; border-radius: 50%;
+      pointer-events: none; z-index: 0;
+      filter: blur(80px);
+    }
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,200,255,.07) 0%, transparent 70%);
+      top: -180px; left: -160px;
+    }
+    .blob-2 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(0,114,255,.06) 0%, transparent 70%);
+      bottom: -160px; right: -120px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative; z-index: 10;
+      width: 100%;
+      padding: 24px 20px 20px;
+      display: flex; justify-content: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(0,200,255,.04) 0%, transparent 100%);
+    }
+    .header-inner {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .logo-wrap {
+      position: relative; width: 60px; height: 60px; flex-shrink: 0;
+    }
+    .logo-wrap img {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--neon);
+      box-shadow: 0 0 16px var(--neon-glow);
+      display: block;
+      animation: pulse-logo 3s ease-in-out infinite;
+    }
+    @keyframes pulse-logo {
+      0%,100% { box-shadow: 0 0 16px var(--neon-glow); }
+      50%      { box-shadow: 0 0 30px var(--neon-glow), 0 0 60px rgba(0,200,255,.2); }
+    }
+    .header-text h1 {
+      font-size: 1.35rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 0 18px rgba(0,200,255,.5);
+    }
+    .header-text h1 em { color: var(--neon); font-style: normal; }
+    .header-text p {
+      font-size: .7rem; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── MAIN ── */
+    main {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 620px;
+      padding: 40px 20px 60px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0;
+    }
+
+    /* ── SCREEN WRAPPER (fade transitions) ── */
+    .screen {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      animation: fadeIn .4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════
+       CHECKPOINT SCREEN
+    ══════════════════════════════ */
+
+    /* Progress Bar */
+    .progress-wrap {
+      width: 100%; margin-bottom: 36px;
+    }
+    .progress-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 10px;
+    }
+    .progress-title {
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--neon);
+    }
+    .progress-count {
+      font-family: var(--mono);
+      font-size: .9rem;
+      color: var(--white);
+    }
+    .progress-count span { color: var(--neon); }
+
+    .bar-track {
+      width: 100%; height: 6px;
+      background: var(--surface2);
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0072B2, var(--neon));
+      border-radius: 99px;
+      transition: width .5s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 0 10px var(--neon-glow);
+      min-width: 0;
+    }
+
+    /* Step Dots */
+    .step-dots {
+      display: flex; justify-content: center; gap: 10px;
+      margin-top: 10px;
+    }
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 700; color: var(--muted);
+      transition: all .3s;
+      position: relative;
+    }
+    .step-dot.done {
+      border-color: var(--neon);
+      background: rgba(0,200,255,.12);
+      color: var(--neon);
+      box-shadow: 0 0 10px rgba(0,200,255,.3);
+    }
+    .step-dot.done::after {
+      content: '✓';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem;
+    }
+    .step-dot.done span { display: none; }
+
+    /* Center Card */
+    .center-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px 28px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 20px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .center-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon), transparent);
+      box-shadow: 0 0 20px var(--neon-glow);
+    }
+
+    .step-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--neon-soft);
+      border: 1.5px solid var(--neon-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 24px rgba(0,200,255,.15);
+      animation: float 3.5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+
+    .card-title {
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .card-desc {
+      font-size: .9rem; color: #8899BB;
+      max-width: 360px;
+    }
+    .card-desc strong { color: var(--warn); }
+
+    /* Remaining badge */
+    .remain-badge {
+      background: rgba(0,200,255,.08);
+      border: 1px solid var(--neon-dim);
+      border-radius: 99px;
+      padding: 8px 22px;
+      font-size: .82rem; font-weight: 600;
+      color: var(--neon);
+      letter-spacing: .04em;
+    }
+
+    /* CTA Button */
+    .cta-btn {
+      position: relative;
+      width: 100%; max-width: 340px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #0054AA, #0096DD);
+      border: none; border-radius: 10px;
+      color: #fff; font-family: var(--font);
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: .06em;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 0 20px rgba(0,150,221,.5), 0 4px 20px rgba(0,0,0,.4);
+    }
+    .cta-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0072FF, #00C8FF);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,200,255,.6), 0 6px 24px rgba(0,0,0,.4); }
+    .cta-btn:hover::before { opacity: 1; }
+    .cta-btn:active { transform: translateY(0) scale(.98); }
+    .cta-btn span { position: relative; z-index: 1; }
+
+    /* Cooldown overlay on button */
+    .cta-btn:disabled {
+      background: var(--surface2);
+      box-shadow: none; cursor: not-allowed;
+      color: var(--muted);
+    }
+    .cta-btn:disabled::before { display: none; }
+
+    /* Cooldown note */
+    .cooldown-note {
+      font-size: .78rem; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 6px var(--neon);
+      animation: blink 1.2s step-start infinite;
+      flex-shrink: 0;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ══════════════════════════════
+       KEY REVEAL SCREEN
+    ══════════════════════════════ */
+    .reveal-screen {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 28px; animation: fadeIn .5s ease;
+    }
+
+    .congrats-header {
+      text-align: center;
+    }
+    .congrats-icon {
+      font-size: 3.5rem; display: block; margin-bottom: 12px;
+      animation: pop .5s cubic-bezier(.17,.67,.83,.67);
+    }
+    @keyframes pop {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    .congrats-header h2 {
+      font-size: 1.6rem; font-weight: 800;
+      color: var(--neon);
+      text-shadow: 0 0 24px var(--neon-glow);
+      letter-spacing: .05em;
+    }
+    .congrats-header p {
+      font-size: .9rem; color: #8899BB; margin-top: 6px;
+    }
+
+    .key-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--neon-dim);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 40px rgba(0,200,255,.1);
+    }
+    .key-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon), transparent);
+      box-shadow: 0 0 20px var(--neon-glow);
+    }
+    .key-label-text {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--neon);
+    }
+    .key-display {
+      font-family: var(--mono);
+      font-size: clamp(1rem, 4vw, 1.4rem);
+      color: var(--white);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 20px;
+      width: 100%;
+      text-align: center;
+      letter-spacing: .08em;
+      user-select: all;
+      word-break: break-all;
+    }
+    .key-copy-btn {
+      width: 100%; max-width: 300px;
+      padding: 14px;
+      background: transparent;
+      border: 1.5px solid var(--neon);
+      border-radius: 10px;
+      color: var(--neon);
+      font-family: var(--font);
+      font-size: .95rem; font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 0 12px rgba(0,200,255,.2);
+    }
+    .key-copy-btn:hover {
+      background: rgba(0,200,255,.1);
+      box-shadow: 0 0 24px rgba(0,200,255,.4);
+    }
+    .key-copy-btn.copied {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(0,230,118,.08);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    .key-warn {
+      background: rgba(255,179,71,.06);
+      border: 1px solid rgba(255,179,71,.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: .82rem; color: var(--warn);
+      width: 100%;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: .8rem;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .reset-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 10;
+      width: 100%; border-top: 1px solid var(--border);
+      padding: 18px 24px; text-align: center;
+    }
+    footer p { font-size: .72rem; color: var(--muted); letter-spacing: .05em; }
+    footer p span { color: var(--neon); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px);
+      background: #0F1117;
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: .85rem; font-weight: 600;
+      padding: 10px 26px;
+      border-radius: 50px;
+      box-shadow: 0 0 24px var(--green-glow);
+      opacity: 0; transition: opacity .25s, transform .25s;
+      pointer-events: none; z-index: 999;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 420px) {
+      .center-card { padding: 28px 18px; }
+      .step-dot { width: 26px; height: 26px; font-size: .65rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img src="https://img2.pic.in.th/46834.png" alt="XENO MODS" />
+    </div>
+    <div class="header-text">
+      <h1><em>XENO</em> MODS</h1>
+      <p>Key Distribution System</p>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div id="app" class="screen"></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>XENO MODS</span> — All Rights Reserved &nbsp;|&nbsp; Powered by <span>@Arreking</span></p>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+//  CONFIG — แก้ค่าตรงนี้ได้เลย
+// ════════════════════════════════════════════
+const TOTAL_STEPS = 5;
+const AD_URL = "https://loot-link.com/s?xxxxxxxxxxxxxxxx"; // ← ใส่ลิ้งค์ LootLabs ของคุณ
+
+// ════════════════════════════════════════════
+//  KEY POOL — 100 คีย์ (เปลี่ยนเป็นคีย์จริง)
+// ════════════════════════════════════════════
+const KEY_POOL = [
+  "XENO-A1B2-C3D4-E5F6","XENO-G7H8-I9J0-K1L2","XENO-M3N4-O5P6-Q7R8",
+  "XENO-S9T0-U1V2-W3X4","XENO-Y5Z6-A7B8-C9D0","XENO-E1F2-G3H4-I5J6",
+  "XENO-K7L8-M9N0-O1P2","XENO-Q3R4-S5T6-U7V8","XENO-W9X0-Y1Z2-A3B4",
+  "XENO-C5D6-E7F8-G9H0","XENO-I1J2-K3L4-M5N6","XENO-O7P8-Q9R0-S1T2",
+  "XENO-U3V4-W5X6-Y7Z8","XENO-A9B0-C1D2-E3F4","XENO-G5H6-I7J8-K9L0",
+  "XENO-M1N2-O3P4-Q5R6","XENO-S7T8-U9V0-W1X2","XENO-Y3Z4-A5B6-C7D8",
+  "XENO-E9F0-G1H2-I3J4","XENO-K5L6-M7N8-O9P0","XENO-Q1R2-S3T4-U5V6",
+  "XENO-W7X8-Y9Z0-A1B2","XENO-C3D4-E5F6-G7H8","XENO-I9J0-K1L2-M3N4",
+  "XENO-O5P6-Q7R8-S9T0","XENO-U1V2-W3X4-Y5Z6","XENO-A7B8-C9D0-E1F2",
+  "XENO-G3H4-I5J6-K7L8","XENO-M9N0-O1P2-Q3R4","XENO-S5T6-U7V8-W9X0",
+  "XENO-Y1Z2-A3B4-C5D6","XENO-E7F8-G9H0-I1J2","XENO-K3L4-M5N6-O7P8",
+  "XENO-Q9R0-S1T2-U3V4","XENO-W5X6-Y7Z8-A9B0","XENO-C1D2-E3F4-G5H6",
+  "XENO-I7J8-K9L0-M1N2","XENO-O3P4-Q5R6-S7T8","XENO-U9V0-W1X2-Y3Z4",
+  "XENO-A5B6-C7D8-E9F0","XENO-G1H2-I3J4-K5L6","XENO-M7N8-O9P0-Q1R2",
+  "XENO-S3T4-U5V6-W7X8","XENO-Y9Z0-A1B2-C3D4","XENO-E5F6-G7H8-I9J0",
+  "XENO-K1L2-M3N4-O5P6","XENO-Q7R8-S9T0-U1V2","XENO-W3X4-Y5Z6-A7B8",
+  "XENO-C9D0-E1F2-G3H4","XENO-I5J6-K7L8-M9N0","XENO-O1P2-Q3R4-S5T6",
+  "XENO-U7V8-W9X0-Y1Z2","XENO-A3B4-C5D6-E7F8","XENO-G9H0-I1J2-K3L4",
+  "XENO-M5N6-O7P8-Q9R0","XENO-S1T2-U3V4-W5X6","XENO-Y7Z8-A9B0-C1D2",
+  "XENO-E3F4-G5H6-I7J8","XENO-K9L0-M1N2-O3P4","XENO-Q5R6-S7T8-U9V0",
+  "XENO-W1X2-Y3Z4-A5B6","XENO-C7D8-E9F0-G1H2","XENO-I3J4-K5L6-M7N8",
+  "XENO-O9P0-Q1R2-S3T4","XENO-U5V6-W7X8-Y9Z0","XENO-A1B2-C3D4-F5G6",
+  "XENO-H7I8-J9K0-L1M2","XENO-N3O4-P5Q6-R7S8","XENO-T9U0-V1W2-X3Y4",
+  "XENO-Z5A6-B7C8-D9E0","XENO-F1G2-H3I4-J5K6","XENO-L7M8-N9O0-P1Q2",
+  "XENO-R3S4-T5U6-V7W8","XENO-X9Y0-Z1A2-B3C4","XENO-D5E6-F7G8-H9I0",
+  "XENO-J1K2-L3M4-N5O6","XENO-P7Q8-R9S0-T1U2","XENO-V3W4-X5Y6-Z7A8",
+  "XENO-B9C0-D1E2-F3G4","XENO-H5I6-J7K8-L9M0","XENO-N1O2-P3Q4-R5S6",
+  "XENO-T7U8-V9W0-X1Y2","XENO-Z3A4-B5C6-D7E8","XENO-F9G0-H1I2-J3K4",
+  "XENO-L5M6-N7O8-P9Q0","XENO-R1S2-T3U4-V5W6","XENO-X7Y8-Z9A0-B1C2",
+  "XENO-D3E4-F5G6-H7I8","XENO-J9K0-L1M2-N3O4","XENO-P5Q6-R7S8-T9U0",
+  "XENO-V1W2-X3Y4-Z5A6","XENO-B7C8-D9E0-F1G2","XENO-H3I4-J5K6-L7M8",
+  "XENO-N9O0-P1Q2-R3S4","XENO-T5U6-V7W8-X9Y0","XENO-Z1A2-B3C4-D5E6",
+];
+
+// ════════════════════════════════════════════
+//  STORAGE HELPERS
+// ════════════════════════════════════════════
+const LS_STEP  = 'xeno_step';
+const LS_KEY   = 'xeno_assigned_key';
+
+function getStep()  { return parseInt(localStorage.getItem(LS_STEP)  || '0'); }
+function setStep(n) { localStorage.setItem(LS_STEP, n); }
+function getSavedKey()     { return localStorage.getItem(LS_KEY); }
+function saveKey(k)        { localStorage.setItem(LS_KEY, k); }
+function clearProgress()   { localStorage.removeItem(LS_STEP); localStorage.removeItem(LS_KEY); }
+
+// ════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════
+const app = document.getElementById('app');
+
+function render() {
+  const step = getStep();
+  if (step >= TOTAL_STEPS) {
+    renderKeyScreen();
+  } else {
+    renderCheckpointScreen(step);
+  }
+}
+
+// ── CHECKPOINT SCREEN ──────────────────────
+function renderCheckpointScreen(step) {
+  const remaining = TOTAL_STEPS - step;
+  const pct = Math.round((step / TOTAL_STEPS) * 100);
+
+  const dotsHTML = Array.from({ length: TOTAL_STEPS }, (_, i) =>
+    `<div class="step-dot ${i < step ? 'done' : ''}"><span>${i + 1}</span></div>`
+  ).join('');
+
+  app.innerHTML = `
+    <div class="screen">
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-title">ความคืบหน้า</span>
+          <span class="progress-count"><span>${step}</span>/${TOTAL_STEPS}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="step-dots">${dotsHTML}</div>
+      </div>
+
+      <!-- Card -->
+      <div class="center-card">
+        <div class="step-icon">${step === 0 ? '🔑' : step < TOTAL_STEPS - 1 ? '⚡' : '🏁'}</div>
+
+        <div class="card-title">
+          ${step === 0
+            ? 'ยืนยันตัวตนเพื่อรับคีย์ฟรี'
+            : step < TOTAL_STEPS - 1
+              ? `ผ่านมาแล้ว ${step} ขั้นตอน — ยอดเยี่ยม!`
+              : 'ขั้นตอนสุดท้ายแล้ว! 🎯'}
+        </div>
+
+        <div class="card-desc">
+          ${step === 0
+            ? 'ระบบต้องการให้คุณผ่านลิ้งค์ยืนยัน <strong>' + TOTAL_STEPS + ' ครั้ง</strong> เพื่อปลดล็อกคีย์ฟรี'
+            : `คุณต้องผ่านลิ้งค์ยืนยันอีก <strong>${remaining} ครั้ง</strong> เพื่อรับคีย์ฟรี`}
+        </div>
+
+        <div class="remain-badge">
+          ต้องผ่านอีก ${remaining} ครั้ง จาก ${TOTAL_STEPS} ครั้ง
+        </div>
+
+        <button class="cta-btn" id="adBtn" onclick="handleAdClick()">
+          <span>⚡&nbsp;&nbsp;กดเพื่อไปสเต็ปถัดไป &nbsp;(${step + 1}/${TOTAL_STEPS})</span>
+        </button>
+
+        <div class="cooldown-note">
+          <span class="live-dot"></span>
+          <span>กดปุ่มแล้วรอโฆษณาโหลด จากนั้นกลับมากดซ้ำ</span>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+// ── KEY SCREEN ─────────────────────────────
+function renderKeyScreen() {
+  // Assign key once, persist it
+  let key = getSavedKey();
+  if (!key) {
+    key = KEY_POOL[Math.floor(Math.random() * KEY_POOL.length)];
+    saveKey(key);
+  }
+
+  app.innerHTML = `
+    <div class="reveal-screen">
+
+      <div class="congrats-header">
+        <span class="congrats-icon">🎉</span>
+        <h2>ยินดีด้วย! ได้รับคีย์แล้ว</h2>
+        <p>ผ่านครบ ${TOTAL_STEPS} ขั้นตอนเรียบร้อย — นี่คือคีย์ของคุณ</p>
+      </div>
+
+      <div class="key-card">
+        <div class="key-label-text">🔑 Your Free Key</div>
+        <div class="key-display" id="keyDisplay">${key}</div>
+        <button class="key-copy-btn" id="copyBtn" onclick="copyKey('${key}')">
+          คัดลอกคีย์
+        </button>
+      </div>
+
+      <div class="key-warn">
+        <span>⚠️</span>
+        <span>คีย์มีอายุ <strong>12 ชั่วโมง</strong> นับจากตอนนี้ กรุณาคัดลอกและใช้งานทันที ห้ามแชร์ต่อเพราะคีย์จะหมดอายุเร็วขึ้น</span>
+      </div>
+
+      <button class="reset-btn" onclick="confirmReset()">
+        ↺ รีเซ็ตเพื่อรับคีย์ใหม่
+      </button>
+
+    </div>
+  `;
+}
+
+// ════════════════════════════════════════════
+//  ACTIONS
+// ════════════════════════════════════════════
+function handleAdClick() {
+  const btn = document.getElementById('adBtn');
+  if (!btn) return;
+
+  // Open ad in new tab
+  window.open(AD_URL, '_blank', 'noopener,noreferrer');
+
+  // Increment step
+  const newStep = getStep() + 1;
+  setStep(newStep);
+
+  // Button feedback before re-render
+  btn.disabled = true;
+  btn.querySelector('span').textContent = '✓ บันทึกแล้ว กำลังอัปเดต…';
+
+  setTimeout(() => {
+    render();
+    showToast(newStep >= TOTAL_STEPS
+      ? '🎉 ครบแล้ว! คีย์ถูกปลดล็อกแล้ว'
+      : `✓ ผ่านแล้ว ${newStep}/${TOTAL_STEPS} ครั้ง`
+    );
+  }, 600);
+}
+
+function copyKey(value) {
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(value).then(doCopied).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = value; el.style.position = 'fixed'; el.style.opacity = '0';
+    document.body.appendChild(el); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+    doCopied();
+  });
+  function doCopied() {
+    if (btn) { btn.textContent = '✓ คัดลอกแล้ว!'; btn.classList.add('copied'); }
+    showToast('✓ คัดลอกคีย์เรียบร้อยแล้ว!');
+    setTimeout(() => {
+      if (btn) { btn.textContent = 'คัดลอกคีย์'; btn.classList.remove('copied'); }
+    }, 3000);
+  }
+}
+
+function confirmReset() {
+  if (confirm('⚠️ รีเซ็ตจะลบคีย์ปัจจุบันของคุณและต้องผ่านขั้นตอนใหม่ทั้ง ' + TOTAL_STEPS + ' ครั้ง\n\nยืนยันหรือไม่?')) {
+    clearProgress();
+    render();
+    showToast('↺ รีเซ็ตเรียบร้อยแล้ว');
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── INIT ──
+render();
+</script>
+</body>
+</html>
+ 
+    
