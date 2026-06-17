@@ -718,18 +718,59 @@
 
   // ── KEY POOL ─────────────────────────────────────────────────────
   // สร้าง 100 คีย์แบบ pseudo-random ด้วย seeded approach
-  const KEY_POOL = (function() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    const pool = [];
-    let s = 48271; // seed
-    function rng() { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; }
-    function seg() { return Array.from({length:6}, () => chars[Math.floor(rng()*chars.length)]).join(''); }
-    for (let i = 0; i < 100; i++) {
-      pool.push(`XENO-${seg()}-${seg()}-${Math.floor(rng()*99999).toString(16).toUpperCase().padStart(5,'0')}`);
-    }
-    return pool;
-  })();
-
+  // ── KEY POOL ─────────────────────────────────────────────────────
+const KEY_POOL = [
+  "XenoMods-12H-yAcPBZvSpa",
+  "XenoMods-12H-6kLxlTqC3K",
+  "XenoMods-12H-n4Px028VLm",
+  "XenoMods-12H-3Z1El5CFSd",
+  "XenoMods-12H-JsugdGUD4k",
+  "XenoMods-12H-gaskAZmnju",
+  "XenoMods-12H-grfby3M9j8",
+  "XenoMods-12H-U7gHOWyTsj",
+  "XenoMods-12H-cVGTeMhSmi",
+  "XenoMods-12H-RJycVXTlrs",
+  "XenoMods-12H-XH9ZkUzb6w",
+  "XenoMods-12H-T8Bjxe506v",
+  "XenoMods-12H-xRSIUFnGH1",
+  "XenoMods-12H-RBT72VHyWN",
+  "XenoMods-12H-ISiDc0yn38",
+  "XenoMods-12H-C4BMcYOKxm",
+  "XenoMods-12H-sXk8Kl91Y5",
+  "XenoMods-12H-1ZbhHsRLaD",
+  "XenoMods-12H-wgVi0FyS4e",
+  "XenoMods-12H-4MlAf1KEi6",
+  "XenoMods-12H-NrDfu9xoXa",
+  "XenoMods-12H-ZS69g7Wv5t",
+  "XenoMods-12H-otaYTkeMCF",
+  "XenoMods-12H-WqwNryo0GQ",
+  "XenoMods-12H-jSeptLGc2T",
+  "XenoMods-12H-hcA7bwle1O",
+  "XenoMods-12H-bOQg2pEfUq",
+  "XenoMods-12H-wrUP9i1OXd",
+  "XenoMods-12H-5AhgaU6d3H",
+  "XenoMods-12H-y4Ys70hOfQ",
+  "XenoMods-12H-1OZoTXDrK7",
+  "XenoMods-12H-i2Gf1Xd8SF",
+  "XenoMods-12H-Qox5zh14gr",
+  "XenoMods-12H-32jpBt8Hiw",
+  "XenoMods-12H-LDiNHo0aQT",
+  "XenoMods-12H-F2SqpOLR1u",
+  "XenoMods-12H-2dbjErJaLz",
+  "XenoMods-12H-metnxq8uIT",
+  "XenoMods-12H-VHnZBNkcRJ",
+  "XenoMods-12H-5zHp7biv8w",
+  "XenoMods-12H-tQn2PKJcx1",
+  "XenoMods-12H-ZGhp0JN4sm",
+  "XenoMods-12H-HcqxSGzQgB",
+  "XenoMods-12H-WILo3iD2rc",
+  "XenoMods-12H-rQm0G3XFn1",
+  "XenoMods-12H-CBZeTGPuXi",
+  "XenoMods-12H-uS7bLhB2F5",
+  "XenoMods-12H-lpayAh9ZqH",
+  "XenoMods-12H-ag4o8Ix1Yj",
+  "XenoMods-12H-4HD9rj1sVM"
+];
   // ── ANTI-CHEAT ───────────────────────────────────────────────────
   function showCheatModal(cb) {
     document.getElementById('cheatModal').classList.remove('hidden');
