@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,7 +29,7 @@
       --radius:      12px;
       --font:        'Sarabun', -apple-system, 'Helvetica Neue', sans-serif;
       --mono:        'Share Tech Mono', monospace;
-      --total:       5;
+      --total:       3;
     }
 
     html { scroll-behavior: smooth; }
@@ -396,7 +397,7 @@
       color: var(--green);
       background: rgba(0,230,118,.08);
       box-shadow: 0 0 20px var(--green-glow);
-    }
+                        } 
 
     .key-warn {
       background: rgba(255,179,71,.06);
@@ -450,6 +451,107 @@
       .center-card { padding: 28px 18px; }
       .step-dot { width: 26px; height: 26px; font-size: .65rem; }
     }
+
+    /* ── DAILY COUNTER BADGE ── */
+    .daily-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: .78rem; color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .daily-badge i { color: var(--neon); font-size: .75rem; }
+    .daily-badge strong { color: var(--white); }
+
+    /* ── CONTACT ADMIN BAR ── */
+    .contact-bar {
+      position: relative; z-index: 10;
+      width: 100%;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 12px 20px;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      flex-wrap: wrap;
+    }
+    .contact-bar-label {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--white);
+      font-size: .82rem; font-weight: 600;
+      text-decoration: none;
+      transition: border-color .2s, box-shadow .2s, color .2s;
+    }
+    .contact-link i { font-size: .9rem; }
+    .contact-link.tg-group { border-color: rgba(0,200,255,.3); color: var(--neon); }
+    .contact-link.tg-group:hover {
+      border-color: var(--neon);
+      box-shadow: 0 0 14px rgba(0,200,255,.25);
+    }
+    .contact-link.tg-admin { border-color: rgba(100,180,255,.2); color: #AAC8FF; }
+    .contact-link.tg-admin:hover {
+      border-color: #AAC8FF;
+      box-shadow: 0 0 14px rgba(100,180,255,.2);
+    }
+
+    /* ── ANTI-CHEAT MODAL ── */
+    .ac-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(0,0,0,.85);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeIn .25s ease;
+    }
+    .ac-modal {
+      background: var(--surface);
+      border: 1px solid var(--danger);
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 420px; width: 100%;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(255,82,82,.25);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .ac-modal::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      border-radius: 16px 16px 0 0;
+      background: linear-gradient(90deg, transparent, var(--danger), transparent);
+    }
+    .ac-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(255,82,82,.1);
+      border: 1.5px solid var(--danger);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--danger); font-size: 1.8rem;
+    }
+    .ac-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--danger);
+      letter-spacing: .05em;
+    }
+    .ac-msg {
+      font-size: .88rem; color: #CC8888; line-height: 1.6;
+    }
+    .ac-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--danger);
+      border: none; border-radius: 9px;
+      color: #fff; font-family: var(--font);
+      font-size: .95rem; font-weight: 700;
+      cursor: pointer;
+      transition: opacity .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .ac-btn:hover { opacity: .85; }
   </style>
 </head>
 <body>
@@ -475,6 +577,17 @@
   <div id="app" class="screen"></div>
 </main>
 
+<!-- CONTACT ADMIN BAR -->
+<div class="contact-bar">
+  <span class="contact-bar-label"><i class="fa-solid fa-headset"></i>&nbsp; ติดต่อ</span>
+  <a class="contact-link tg-group" href="https://t.me/XenoChanel" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-telegram"></i> กลุ่ม XENO MODS
+  </a>
+  <a class="contact-link tg-admin" href="https://t.me/Areeking" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-telegram"></i> ติดต่อแอดมิน
+  </a>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <p>© 2026 <span>XENO MODS</span> — All Rights Reserved &nbsp;|&nbsp; Powered by <span>@Arreking</span></p>
@@ -482,239 +595,24 @@
 
 <div id="toast"></div>
 
+<!-- ANTI-CHEAT MODAL (hidden by default) -->
+<div class="ac-overlay" id="acOverlay" style="display:none;">
+  <div class="ac-modal">
+    <div class="ac-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="ac-title">ตรวจพบการโกง!</div>
+    <div class="ac-msg" id="acMsg"></div>
+    <button class="ac-btn" onclick="dismissCheatModal()">
+      <i class="fa-solid fa-rotate-left"></i> รับทราบ — เริ่มใหม่
+    </button>
+  </div>
+</div>
+
 <script>
 // ════════════════════════════════════════════
-//  CONFIG — แก้ค่าตรงนี้ได้เลย
+//  CONFIG
 // ════════════════════════════════════════════
-const TOTAL_STEPS = 5;
-const AD_URL = "https://loot-link.com/s?xxxxxxxxxxxxxxxx"; // ← ใส่ลิ้งค์ LootLabs ของคุณ
+const TOTAL_STEPS  = 3;
+const AD_URL       = "https://loot-link.com/s?xxxxxxxxxxxxxxxx"; // ← ลิ้งค์ LootLabs ของคุณ
+const TG_URL       = "https://t.me/XenoChanel";                  // รับคีย์ผ่าน Telegram
+  
 
-// ════════════════════════════════════════════
-//  KEY POOL — 100 คีย์ (เปลี่ยนเป็นคีย์จริง)
-// ════════════════════════════════════════════
-const KEY_POOL = [
-  "XENO-A1B2-C3D4-E5F6","XENO-G7H8-I9J0-K1L2","XENO-M3N4-O5P6-Q7R8",
-  "XENO-S9T0-U1V2-W3X4","XENO-Y5Z6-A7B8-C9D0","XENO-E1F2-G3H4-I5J6",
-  "XENO-K7L8-M9N0-O1P2","XENO-Q3R4-S5T6-U7V8","XENO-W9X0-Y1Z2-A3B4",
-  "XENO-C5D6-E7F8-G9H0","XENO-I1J2-K3L4-M5N6","XENO-O7P8-Q9R0-S1T2",
-  "XENO-U3V4-W5X6-Y7Z8","XENO-A9B0-C1D2-E3F4","XENO-G5H6-I7J8-K9L0",
-  "XENO-M1N2-O3P4-Q5R6","XENO-S7T8-U9V0-W1X2","XENO-Y3Z4-A5B6-C7D8",
-  "XENO-E9F0-G1H2-I3J4","XENO-K5L6-M7N8-O9P0","XENO-Q1R2-S3T4-U5V6",
-  "XENO-W7X8-Y9Z0-A1B2","XENO-C3D4-E5F6-G7H8","XENO-I9J0-K1L2-M3N4",
-  "XENO-O5P6-Q7R8-S9T0","XENO-U1V2-W3X4-Y5Z6","XENO-A7B8-C9D0-E1F2",
-  "XENO-G3H4-I5J6-K7L8","XENO-M9N0-O1P2-Q3R4","XENO-S5T6-U7V8-W9X0",
-  "XENO-Y1Z2-A3B4-C5D6","XENO-E7F8-G9H0-I1J2","XENO-K3L4-M5N6-O7P8",
-  "XENO-Q9R0-S1T2-U3V4","XENO-W5X6-Y7Z8-A9B0","XENO-C1D2-E3F4-G5H6",
-  "XENO-I7J8-K9L0-M1N2","XENO-O3P4-Q5R6-S7T8","XENO-U9V0-W1X2-Y3Z4",
-  "XENO-A5B6-C7D8-E9F0","XENO-G1H2-I3J4-K5L6","XENO-M7N8-O9P0-Q1R2",
-  "XENO-S3T4-U5V6-W7X8","XENO-Y9Z0-A1B2-C3D4","XENO-E5F6-G7H8-I9J0",
-  "XENO-K1L2-M3N4-O5P6","XENO-Q7R8-S9T0-U1V2","XENO-W3X4-Y5Z6-A7B8",
-  "XENO-C9D0-E1F2-G3H4","XENO-I5J6-K7L8-M9N0","XENO-O1P2-Q3R4-S5T6",
-  "XENO-U7V8-W9X0-Y1Z2","XENO-A3B4-C5D6-E7F8","XENO-G9H0-I1J2-K3L4",
-  "XENO-M5N6-O7P8-Q9R0","XENO-S1T2-U3V4-W5X6","XENO-Y7Z8-A9B0-C1D2",
-  "XENO-E3F4-G5H6-I7J8","XENO-K9L0-M1N2-O3P4","XENO-Q5R6-S7T8-U9V0",
-  "XENO-W1X2-Y3Z4-A5B6","XENO-C7D8-E9F0-G1H2","XENO-I3J4-K5L6-M7N8",
-  "XENO-O9P0-Q1R2-S3T4","XENO-U5V6-W7X8-Y9Z0","XENO-A1B2-C3D4-F5G6",
-  "XENO-H7I8-J9K0-L1M2","XENO-N3O4-P5Q6-R7S8","XENO-T9U0-V1W2-X3Y4",
-  "XENO-Z5A6-B7C8-D9E0","XENO-F1G2-H3I4-J5K6","XENO-L7M8-N9O0-P1Q2",
-  "XENO-R3S4-T5U6-V7W8","XENO-X9Y0-Z1A2-B3C4","XENO-D5E6-F7G8-H9I0",
-  "XENO-J1K2-L3M4-N5O6","XENO-P7Q8-R9S0-T1U2","XENO-V3W4-X5Y6-Z7A8",
-  "XENO-B9C0-D1E2-F3G4","XENO-H5I6-J7K8-L9M0","XENO-N1O2-P3Q4-R5S6",
-  "XENO-T7U8-V9W0-X1Y2","XENO-Z3A4-B5C6-D7E8","XENO-F9G0-H1I2-J3K4",
-  "XENO-L5M6-N7O8-P9Q0","XENO-R1S2-T3U4-V5W6","XENO-X7Y8-Z9A0-B1C2",
-  "XENO-D3E4-F5G6-H7I8","XENO-J9K0-L1M2-N3O4","XENO-P5Q6-R7S8-T9U0",
-  "XENO-V1W2-X3Y4-Z5A6","XENO-B7C8-D9E0-F1G2","XENO-H3I4-J5K6-L7M8",
-  "XENO-N9O0-P1Q2-R3S4","XENO-T5U6-V7W8-X9Y0","XENO-Z1A2-B3C4-D5E6",
-];
-
-// ════════════════════════════════════════════
-//  STORAGE HELPERS
-// ════════════════════════════════════════════
-const LS_STEP  = 'xeno_step';
-const LS_KEY   = 'xeno_assigned_key';
-
-function getStep()  { return parseInt(localStorage.getItem(LS_STEP)  || '0'); }
-function setStep(n) { localStorage.setItem(LS_STEP, n); }
-function getSavedKey()     { return localStorage.getItem(LS_KEY); }
-function saveKey(k)        { localStorage.setItem(LS_KEY, k); }
-function clearProgress()   { localStorage.removeItem(LS_STEP); localStorage.removeItem(LS_KEY); }
-
-// ════════════════════════════════════════════
-//  RENDER
-// ════════════════════════════════════════════
-const app = document.getElementById('app');
-
-function render() {
-  const step = getStep();
-  if (step >= TOTAL_STEPS) {
-    renderKeyScreen();
-  } else {
-    renderCheckpointScreen(step);
-  }
-}
-
-// ── CHECKPOINT SCREEN ──────────────────────
-function renderCheckpointScreen(step) {
-  const remaining = TOTAL_STEPS - step;
-  const pct = Math.round((step / TOTAL_STEPS) * 100);
-
-  const dotsHTML = Array.from({ length: TOTAL_STEPS }, (_, i) =>
-    `<div class="step-dot ${i < step ? 'done' : ''}"><span>${i + 1}</span></div>`
-  ).join('');
-
-  app.innerHTML = `
-    <div class="screen">
-
-      <!-- Progress -->
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span class="progress-title">ความคืบหน้า</span>
-          <span class="progress-count"><span>${step}</span>/${TOTAL_STEPS}</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="width:${pct}%"></div>
-        </div>
-        <div class="step-dots">${dotsHTML}</div>
-      </div>
-
-      <!-- Card -->
-      <div class="center-card">
-        <div class="step-icon">${step === 0 ? '🔑' : step < TOTAL_STEPS - 1 ? '⚡' : '🏁'}</div>
-
-        <div class="card-title">
-          ${step === 0
-            ? 'ยืนยันตัวตนเพื่อรับคีย์ฟรี'
-            : step < TOTAL_STEPS - 1
-              ? `ผ่านมาแล้ว ${step} ขั้นตอน — ยอดเยี่ยม!`
-              : 'ขั้นตอนสุดท้ายแล้ว! 🎯'}
-        </div>
-
-        <div class="card-desc">
-          ${step === 0
-            ? 'ระบบต้องการให้คุณผ่านลิ้งค์ยืนยัน <strong>' + TOTAL_STEPS + ' ครั้ง</strong> เพื่อปลดล็อกคีย์ฟรี'
-            : `คุณต้องผ่านลิ้งค์ยืนยันอีก <strong>${remaining} ครั้ง</strong> เพื่อรับคีย์ฟรี`}
-        </div>
-
-        <div class="remain-badge">
-          ต้องผ่านอีก ${remaining} ครั้ง จาก ${TOTAL_STEPS} ครั้ง
-        </div>
-
-        <button class="cta-btn" id="adBtn" onclick="handleAdClick()">
-          <span>⚡&nbsp;&nbsp;กดเพื่อไปสเต็ปถัดไป &nbsp;(${step + 1}/${TOTAL_STEPS})</span>
-        </button>
-
-        <div class="cooldown-note">
-          <span class="live-dot"></span>
-          <span>กดปุ่มแล้วรอโฆษณาโหลด จากนั้นกลับมากดซ้ำ</span>
-        </div>
-      </div>
-
-    </div>
-  `;
-}
-
-// ── KEY SCREEN ─────────────────────────────
-function renderKeyScreen() {
-  // Assign key once, persist it
-  let key = getSavedKey();
-  if (!key) {
-    key = KEY_POOL[Math.floor(Math.random() * KEY_POOL.length)];
-    saveKey(key);
-  }
-
-  app.innerHTML = `
-    <div class="reveal-screen">
-
-      <div class="congrats-header">
-        <span class="congrats-icon">🎉</span>
-        <h2>ยินดีด้วย! ได้รับคีย์แล้ว</h2>
-        <p>ผ่านครบ ${TOTAL_STEPS} ขั้นตอนเรียบร้อย — นี่คือคีย์ของคุณ</p>
-      </div>
-
-      <div class="key-card">
-        <div class="key-label-text">🔑 Your Free Key</div>
-        <div class="key-display" id="keyDisplay">${key}</div>
-        <button class="key-copy-btn" id="copyBtn" onclick="copyKey('${key}')">
-          คัดลอกคีย์
-        </button>
-      </div>
-
-      <div class="key-warn">
-        <span>⚠️</span>
-        <span>คีย์มีอายุ <strong>12 ชั่วโมง</strong> นับจากตอนนี้ กรุณาคัดลอกและใช้งานทันที ห้ามแชร์ต่อเพราะคีย์จะหมดอายุเร็วขึ้น</span>
-      </div>
-
-      <button class="reset-btn" onclick="confirmReset()">
-        ↺ รีเซ็ตเพื่อรับคีย์ใหม่
-      </button>
-
-    </div>
-  `;
-}
-
-// ════════════════════════════════════════════
-//  ACTIONS
-// ════════════════════════════════════════════
-function handleAdClick() {
-  const btn = document.getElementById('adBtn');
-  if (!btn) return;
-
-  // Open ad in new tab
-  window.open(AD_URL, '_blank', 'noopener,noreferrer');
-
-  // Increment step
-  const newStep = getStep() + 1;
-  setStep(newStep);
-
-  // Button feedback before re-render
-  btn.disabled = true;
-  btn.querySelector('span').textContent = '✓ บันทึกแล้ว กำลังอัปเดต…';
-
-  setTimeout(() => {
-    render();
-    showToast(newStep >= TOTAL_STEPS
-      ? '🎉 ครบแล้ว! คีย์ถูกปลดล็อกแล้ว'
-      : `✓ ผ่านแล้ว ${newStep}/${TOTAL_STEPS} ครั้ง`
-    );
-  }, 600);
-}
-
-function copyKey(value) {
-  const btn = document.getElementById('copyBtn');
-  navigator.clipboard.writeText(value).then(doCopied).catch(() => {
-    const el = document.createElement('textarea');
-    el.value = value; el.style.position = 'fixed'; el.style.opacity = '0';
-    document.body.appendChild(el); el.select();
-    document.execCommand('copy'); document.body.removeChild(el);
-    doCopied();
-  });
-  function doCopied() {
-    if (btn) { btn.textContent = '✓ คัดลอกแล้ว!'; btn.classList.add('copied'); }
-    showToast('✓ คัดลอกคีย์เรียบร้อยแล้ว!');
-    setTimeout(() => {
-      if (btn) { btn.textContent = 'คัดลอกคีย์'; btn.classList.remove('copied'); }
-    }, 3000);
-  }
-}
-
-function confirmReset() {
-  if (confirm('⚠️ รีเซ็ตจะลบคีย์ปัจจุบันของคุณและต้องผ่านขั้นตอนใหม่ทั้ง ' + TOTAL_STEPS + ' ครั้ง\n\nยืนยันหรือไม่?')) {
-    clearProgress();
-    render();
-    showToast('↺ รีเซ็ตเรียบร้อยแล้ว');
-  }
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-// ── INIT ──
-render();
-</script>
-</body>
-</html>
- 
-    
